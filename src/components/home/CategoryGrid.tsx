@@ -32,11 +32,10 @@ const CategoryGrid = () => {
   ).sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
 
   return (
-    <section id="categories" className="py-6 bg-white border-b">
+    <section id="categories" className="py-6 bg-white">
+      {/* 1. NAVBAR UI SECTION */}
       <div className="container mx-auto px-4">
-        
-        {/* 1. NAVBAR UI: Pill-shaped buttons (ALL removed) */}
-        <div className="flex flex-wrap items-center gap-3 mb-12 overflow-x-auto pb-2 no-scrollbar">
+        <div className="flex flex-wrap items-center gap-3 mb-6 overflow-x-auto pb-2 no-scrollbar">
           {isLoading ? (
             Array.from({ length: 4 }).map((_, i) => (
               <Skeleton key={i} className="h-10 w-28 rounded-full" />
@@ -46,10 +45,9 @@ const CategoryGrid = () => {
               <Link
                 key={category.id}
                 to={`/category/${category.slug}`}
-                className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-full text-sm font-semibold transition-all whitespace-nowrap border border-gray-200/50 shadow-sm"
+                className="flex items-center gap-2 px-4 py-2 bg-[#f4f6f5] hover:bg-gray-200 text-[#2d5a50] rounded-full text-sm font-semibold transition-all whitespace-nowrap shadow-sm"
               >
-                {/* Category Image as a small icon */}
-                <div className="w-6 h-6 rounded-full overflow-hidden bg-white border border-gray-200">
+                <div className="w-6 h-6 rounded-full overflow-hidden bg-white border border-gray-100">
                   <img 
                     src={category.image_url || '/placeholder.svg'} 
                     alt="" 
@@ -61,7 +59,11 @@ const CategoryGrid = () => {
             ))
           )}
         </div>
+      </div>
 
+      <div className="w-full border-b border-gray-100 mb-10"></div>
+
+      <div className="container mx-auto px-4">
         {/* 2. SECTION HEADER */}
         <div className="text-left mb-8 border-l-4 border-[#0a231b] pl-4">
           <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground">
@@ -93,7 +95,7 @@ const CategoryGrid = () => {
                     />
                   </div>
                   <div className="mt-3 text-center">
-                    <h3 className="text-xs md:text-sm font-bold text-gray-800 uppercase tracking-tight group-hover:text-primary">
+                    <h3 className="text-xs md:text-sm font-bold text-gray-800 uppercase tracking-tight group-hover:text-[#2d5a50]">
                       {category.name}
                     </h3>
                   </div>
