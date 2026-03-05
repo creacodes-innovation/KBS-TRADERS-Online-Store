@@ -20,7 +20,6 @@ const CategoryGrid = () => {
     );
   }
 
-  // Categories filter cheyyunnu
   const priorityNames = ['EXCLUSIVE', 'COMBOS', 'GIFTING', 'OFFERS'];
   
   const priorityCategories = categories?.filter(cat => 
@@ -33,21 +32,26 @@ const CategoryGrid = () => {
 
   return (
     <section id="categories" className="py-6 bg-white">
-      {/* 1. NAVBAR UI SECTION */}
+      
+      {/* 1. NAVBAR UI SECTION (With X-Axis Scroll Support) */}
       <div className="container mx-auto px-4">
-        <div className="flex flex-wrap items-center gap-3 mb-6 overflow-x-auto pb-2 no-scrollbar">
+        <div className="flex items-center gap-3 mb-6 overflow-x-auto pb-4 no-scrollbar scroll-smooth antialiased" 
+             style={{ WebkitOverflowScrolling: 'touch' }}> 
+          {/* WebkitOverflowScrolling touch momentum scrolling enable cheyyunnu */}
+          
           {isLoading ? (
             Array.from({ length: 4 }).map((_, i) => (
-              <Skeleton key={i} className="h-10 w-28 rounded-full" />
+              <Skeleton key={i} className="h-10 w-28 rounded-full flex-shrink-0" />
             ))
           ) : (
             priorityCategories?.map((category) => (
               <Link
                 key={category.id}
                 to={`/category/${category.slug}`}
-                className="flex items-center gap-2 px-4 py-2 bg-[#f4f6f5] hover:bg-gray-200 text-[#2d5a50] rounded-full text-sm font-semibold transition-all whitespace-nowrap shadow-sm"
+                className="flex items-center gap-2 px-4 py-2 bg-[#f4f6f5] hover:bg-gray-200 text-[#2d5a50] rounded-full text-sm font-semibold transition-all whitespace-nowrap shadow-sm flex-shrink-0"
               >
-                <div className="w-6 h-6 rounded-full overflow-hidden bg-white border border-gray-100">
+                {/* flex-shrink-0 nalkiyathukondu buttons amungipilla (shrink aavilla) */}
+                <div className="w-6 h-6 rounded-full overflow-hidden bg-white border border-gray-100 flex-shrink-0">
                   <img 
                     src={category.image_url || '/placeholder.svg'} 
                     alt="" 
@@ -61,6 +65,7 @@ const CategoryGrid = () => {
         </div>
       </div>
 
+      {/* --- Full Width Border Line --- */}
       <div className="w-full border-b border-gray-100 mb-10"></div>
 
       <div className="container mx-auto px-4">
