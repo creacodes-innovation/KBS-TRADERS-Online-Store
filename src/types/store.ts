@@ -21,6 +21,7 @@ export interface Product {
   pac: number | null;
   is_sold_out: boolean;
   is_featured: boolean;
+  is_offer?: boolean;
   created_at: string;
   updated_at: string;
   category?: Category;

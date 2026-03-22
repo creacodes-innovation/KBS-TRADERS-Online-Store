@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { useCategories } from '@/hooks/useProducts';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useEffect } from 'react';
+// Import Lucide Icons
+import { Star, Package, Gift, Tag, LayoutGrid } from 'lucide-react';
 
 const CategoryGrid = () => {
   useEffect(() => {
@@ -9,6 +11,14 @@ const CategoryGrid = () => {
   }, []);
 
   const { data: categories, isLoading, error } = useCategories();
+
+  // Mapping names to React Icons
+  const categoryIcons: Record<string, React.ElementType> = {
+    'TRY NEW': Star, // Updated from EXCLUSIVE
+    COMBOS: Package,
+    GIFTING: Gift,
+    OFFERS: Tag,
+  };
 
   if (error) {
     return (
@@ -20,7 +30,8 @@ const CategoryGrid = () => {
     );
   }
 
-  const priorityNames = ['EXCLUSIVE', 'COMBOS', 'GIFTING', 'OFFERS'];
+  // Updated EXCLUSIVE to TRY NEW in the priority list
+  const priorityNames = ['TRY NEW', 'COMBOS', 'GIFTING', 'OFFERS'];
   
   const priorityCategories = categories?.filter(cat => 
     priorityNames.includes(cat.name.toUpperCase())
@@ -37,30 +48,29 @@ const CategoryGrid = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center gap-3 mb-6 overflow-x-auto pb-4 no-scrollbar scroll-smooth antialiased" 
              style={{ WebkitOverflowScrolling: 'touch' }}> 
-          {/* WebkitOverflowScrolling touch momentum scrolling enable cheyyunnu */}
           
           {isLoading ? (
             Array.from({ length: 4 }).map((_, i) => (
               <Skeleton key={i} className="h-10 w-28 rounded-full flex-shrink-0" />
             ))
           ) : (
-            priorityCategories?.map((category) => (
-              <Link
-                key={category.id}
-                to={`/category/${category.slug}`}
-                className="flex items-center gap-2 px-4 py-2 bg-[#f4f6f5] hover:bg-gray-200 text-[#2d5a50] rounded-full text-sm font-semibold transition-all whitespace-nowrap shadow-sm flex-shrink-0"
-              >
-                {/* flex-shrink-0 nalkiyathukondu buttons amungipilla (shrink aavilla) */}
-                <div className="w-6 h-6 rounded-full overflow-hidden bg-white border border-gray-100 flex-shrink-0">
-                  <img 
-                    src={category.image_url || '/placeholder.svg'} 
-                    alt="" 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                {category.name}
-              </Link>
-            ))
+            priorityCategories?.map((category) => {
+              // Get the mapped icon or fallback to LayoutGrid
+              const IconComponent = categoryIcons[category.name.toUpperCase()] || LayoutGrid;
+              
+              return (
+                <Link
+                  key={category.id}
+                  to={`/category/${category.slug}`}
+                  className="flex items-center gap-2 px-4 py-2 bg-[#f4f6f5] hover:bg-gray-200 text-[#2d5a50] rounded-full text-sm font-semibold transition-all whitespace-nowrap shadow-sm flex-shrink-0 group"
+                >
+                  <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white border border-gray-100 flex-shrink-0 transition-colors group-hover:text-[#0a231b]">
+                    <IconComponent size={14} strokeWidth={2.5} />
+                  </div>
+                  {category.name}
+                </Link>
+              );
+            })
           )}
         </div>
       </div>

@@ -72,6 +72,7 @@ const AdminPage = () => {
     price_pac: "",
     is_sold_out: false,
     is_featured: false,
+    is_offer: false,
   });
 
   const filteredProducts = products?.filter((product) => {
@@ -150,6 +151,7 @@ const AdminPage = () => {
       price_pac: "",
       is_sold_out: false,
       is_featured: false,
+      is_offer: false,
     });
     setEditingProduct(null);
   };
@@ -169,6 +171,8 @@ const AdminPage = () => {
       price_pac: product.price_pac?.toString() || "",
       is_sold_out: product.is_sold_out,
       is_featured: product.is_featured,
+      is_offer: product.is_offer || false
+
     });
     setIsDialogOpen(true);
   };
@@ -188,6 +192,7 @@ const AdminPage = () => {
       price_pac: formData.price_pac ? parseFloat(formData.price_pac) : null,
       is_sold_out: formData.is_sold_out,
       is_featured: formData.is_featured,
+      is_offer: formData.is_offer,
     };
 
     try {
@@ -567,6 +572,15 @@ const AdminPage = () => {
                       />
                       <Label htmlFor="is_featured">Featured</Label>
                     </div>
+                    <div className="flex items-center gap-2">
+                      <Switch
+                        checked={formData.is_offer}
+                        onCheckedChange={(checked) =>
+                          setFormData({ ...formData, is_offer: checked })
+                        }
+                      />
+                      <Label>Offer</Label>
+                    </div>
                   </div>
                   <Button
                     type="submit"
@@ -651,11 +665,10 @@ const AdminPage = () => {
                     <td className="p-4 text-center">
                       <button
                         onClick={() => toggleSoldOut(product)}
-                        className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
-                          product.is_sold_out
+                        className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${product.is_sold_out
                             ? "bg-destructive/10 text-destructive"
                             : "bg-emerald/10 text-emerald"
-                        }`}
+                          }`}
                       >
                         {product.is_sold_out ? "Sold Out" : "In Stock"}
                       </button>
