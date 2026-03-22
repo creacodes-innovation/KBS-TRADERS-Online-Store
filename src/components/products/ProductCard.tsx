@@ -16,27 +16,32 @@ const weightOptions: { value: WeightOption; label: string }[] = [
 ];
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const [selectedWeight, setSelectedWeight] = useState<WeightOption>('250g');
-  const [justAdded, setJustAdded] = useState(false);
   const { addToCart } = useCart();
+  const [justAdded, setJustAdded] = useState(false);
 
+  // Helper function to get price
   const getPrice = (weight: WeightOption): number | null => {
     switch (weight) {
-      case '250g':
-        return product.price_250g;
-      case '500g':
-        return product.price_500g;
-      case '1kg':
-        return product.price_1kg;
-      default:
-        return null;
+      case '250g': return product.price_250g;
+      case '500g': return product.price_500g;
+      case '1kg': return product.price_1kg;
+      default: return null;
     }
   };
 
-  const currentPrice = getPrice(selectedWeight);
   const availableWeights = weightOptions.filter(
     (opt) => getPrice(opt.value) !== null
   );
+
+  const [selectedWeight, setSelectedWeight] = useState<WeightOption>(() => {
+    return availableWeights.length > 0 ? availableWeights[0].value : '250g';
+  });
+
+  const currentPrice = getPrice(selectedWeight);
+  
+  // Fake MRP calculation for "vetti ezhuthal" effect
+  // currentPrice-നേക്കാൾ 20% കൂടുതൽ കാണിക്കാൻ (നിങ്ങൾക്ക് ഡാറ്റയിൽ MRP ഉണ്ടെങ്കിൽ അത് ഉപയോഗിക്കാം)
+  const mrpPrice = currentPrice ? Math.round(currentPrice * 1.2) : null;
 
   const handleAddToCart = () => {
     if (!product.is_sold_out && currentPrice) {
@@ -45,11 +50,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
       setTimeout(() => setJustAdded(false), 1500);
     }
   };
- 
 
   return (
     <div className="group bg-card rounded-lg overflow-hidden shadow-card hover:shadow-elevated transition-all duration-300">
-      {/* Image */}
+      {/* Image Section */}
       <div className="relative aspect-square overflow-hidden">
         <img
           src={product.image_url || '/placeholder.svg'}
@@ -57,7 +61,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
         
-        {/* Sold Out Badge */}
         {product.is_sold_out && (
           <div className="absolute inset-0 bg-foreground/60 flex items-center justify-center">
             <span className="bg-destructive text-destructive-foreground px-4 py-2 rounded-full text-sm font-semibold">
@@ -66,7 +69,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
           </div>
         )}
 
-        {/* Featured Badge */}
         {product.is_featured && !product.is_sold_out && (
           <div className="absolute top-3 left-3">
             <span className="bg-gold text-gold-foreground px-3 py-1 rounded-full text-xs font-semibold">
@@ -76,18 +78,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
         )}
       </div>
 
-      {/* Content */}
+      {/* Content Section */}
       <div className="p-4">
-        {/* Category */}
-        {product.category && (
-          <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-            {product.category.name}
-          </span>
-        )}
-
-        {/* Title */}
-        <h3 className="font-display text-lg font-semibold text-foreground mt-1 mb-3 line-clamp-1">
-          {product.title}
+        {/* Product Title - Normal Style & Capitalized */}
+        <h3 className="text-[15px] font-normal text-foreground mt-1 mb-3 line-clamp-1 tracking-tight capitalize">
+          {product.title.toLowerCase()}
         </h3>
 
         {/* Weight Selector */}
@@ -110,15 +105,20 @@ const ProductCard = ({ product }: ProductCardProps) => {
           ))}
         </div>
 
-        {/* Price & Add to Cart */}
+        {/* Price & Add to Cart Section */}
         <div className="flex items-center justify-between">
-          <div>
-            {currentPrice ? (
-              <span className="text-xl font-bold text-foreground">
+          <div className="flex flex-col">
+            {/* MRP - Vetti ezhuthal style */}
+            {mrpPrice && (
+              <span className="text-xs text-muted-foreground line-through">
+                ₹{mrpPrice.toLocaleString('en-IN')}
+              </span>
+            )}
+            {/* Discounted Price */}
+            {currentPrice && (
+              <span className="text-lg font-bold text-foreground">
                 ₹{currentPrice.toLocaleString('en-IN')}
               </span>
-            ) : (
-              <span className="text-muted-foreground">N/A</span>
             )}
           </div>
 
@@ -128,7 +128,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             variant={justAdded ? 'default' : 'gold'}
             size="sm"
             className={cn(
-              'transition-all',
+              'transition-all px-4',
               justAdded && 'bg-emerald text-primary-foreground'
             )}
           >
