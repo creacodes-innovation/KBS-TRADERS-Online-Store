@@ -13,6 +13,7 @@ export interface Product {
   description: string | null;
   category_id: string | null;
   image_url: string | null;
+  mrp_price?: number | null;
   price_250g: number | null;
   price_500g: number | null;
   price_1kg: number | null;

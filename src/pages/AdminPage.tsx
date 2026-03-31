@@ -45,6 +45,24 @@ const AdminPage = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  const handle1KgPriceChange = (value: string) => {
+    const kgPrice = Number(value);
+
+    if (autoPricing) {
+      setFormData((prev) => ({
+        ...prev,
+        price_1kg: value,
+        price_500g: kgPrice ? Math.round(kgPrice / 2).toString() : "",
+        price_250g: kgPrice ? Math.round(kgPrice / 4).toString() : "",
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        price_1kg: value,
+      }));
+    }
+  };
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -58,12 +76,13 @@ const AdminPage = () => {
   const { data: categories } = useCategories();
   const { data: products, refetch: refetchProducts } = useProducts();
   const navigate = useNavigate();
-
+  const [autoPricing, setAutoPricing] = useState(true);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     category_id: "",
     image_url: "",
+    mrp_price: "",
     price_250g: "",
     price_500g: "",
     price_1kg: "",
@@ -143,6 +162,7 @@ const AdminPage = () => {
       description: "",
       category_id: "",
       image_url: "",
+      mrp_price: "",
       price_250g: "",
       price_500g: "",
       price_1kg: "",
@@ -159,21 +179,22 @@ const AdminPage = () => {
   const openEditDialog = (product: any) => {
     setEditingProduct(product);
     setFormData({
-      title: product.title,
+      title: product.title || "",
       description: product.description || "",
       category_id: product.category_id || "",
       image_url: product.image_url || "",
+      mrp_price: product.mrp_price?.toString() || "",
       price_250g: product.price_250g?.toString() || "",
       price_500g: product.price_500g?.toString() || "",
       price_1kg: product.price_1kg?.toString() || "",
       price_pcs: product.price_pcs?.toString() || "",
       price_nos: product.price_nos?.toString() || "",
       price_pac: product.price_pac?.toString() || "",
-      is_sold_out: product.is_sold_out,
-      is_featured: product.is_featured,
-      is_offer: product.is_offer || false
-
+      is_sold_out: product.is_sold_out || false,
+      is_featured: product.is_featured || false,
+      is_offer: product.is_offer || false,
     });
+
     setIsDialogOpen(true);
   };
 
@@ -184,6 +205,7 @@ const AdminPage = () => {
       description: formData.description || null,
       category_id: formData.category_id || null,
       image_url: formData.image_url || null,
+      mrp_price: formData.mrp_price ? parseFloat(formData.mrp_price) : null,
       price_250g: formData.price_250g ? parseFloat(formData.price_250g) : null,
       price_500g: formData.price_500g ? parseFloat(formData.price_500g) : null,
       price_1kg: formData.price_1kg ? parseFloat(formData.price_1kg) : null,
@@ -450,8 +472,30 @@ const AdminPage = () => {
                       </div>
                     </div>
                   </div>
-
-                  {/* --- Price Units Section --- */}
+                  {/* --- MRP Section --- */}
+                  <div className="space-y-3">
+                    <Label className="text-primary font-bold">MRP</Label>
+                    <Input
+                      type="number"
+                      value={formData.mrp_price}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          mrp_price: e.target.value,
+                        })
+                      }
+                      placeholder="₹"
+                    />
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Switch
+                      checked={autoPricing}
+                      onCheckedChange={setAutoPricing}
+                    />
+                    <Label>
+                      {autoPricing ? "Auto Pricing ON" : "Manual Pricing"}
+                    </Label>
+                  </div>
                   <div className="space-y-3">
                     <Label className="text-primary font-bold">
                       Pricing & Units
@@ -461,6 +505,7 @@ const AdminPage = () => {
                         <Label htmlFor="price_250g">250g</Label>
                         <Input
                           id="price_250g"
+                          disabled={autoPricing}
                           type="number"
                           value={formData.price_250g}
                           onChange={(e) =>
@@ -472,10 +517,12 @@ const AdminPage = () => {
                           placeholder="₹"
                         />
                       </div>
+
                       <div>
                         <Label htmlFor="price_500g">500g</Label>
                         <Input
                           id="price_500g"
+                          disabled={autoPricing}
                           type="number"
                           value={formData.price_500g}
                           onChange={(e) =>
@@ -487,22 +534,18 @@ const AdminPage = () => {
                           placeholder="₹"
                         />
                       </div>
+
                       <div>
                         <Label htmlFor="price_1kg">1kg</Label>
                         <Input
                           id="price_1kg"
                           type="number"
                           value={formData.price_1kg}
-                          onChange={(e) =>
-                            setFormData({
-                              ...formData,
-                              price_1kg: e.target.value,
-                            })
-                          }
+                          onChange={(e) => handle1KgPriceChange(e.target.value)}
                           placeholder="₹"
                         />
                       </div>
-                      {/* New Units Added Below */}
+
                       <div>
                         <Label htmlFor="price_pcs">Pcs</Label>
                         <Input
@@ -518,6 +561,7 @@ const AdminPage = () => {
                           placeholder="₹"
                         />
                       </div>
+
                       <div>
                         <Label htmlFor="price_nos">Nos</Label>
                         <Input
@@ -533,6 +577,7 @@ const AdminPage = () => {
                           placeholder="₹"
                         />
                       </div>
+
                       <div>
                         <Label htmlFor="price_pac">Pac</Label>
                         <Input
