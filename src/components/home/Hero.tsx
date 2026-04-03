@@ -12,7 +12,7 @@ const Hero = () => {
         <img
           src={heroImage}
           alt="hero"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover fixed top-0 left-0 -z-10"
         />
       </div>
 
