@@ -142,7 +142,7 @@ const Header = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full bg-[#EADBC8] border border-[#8B6B4A] rounded-lg px-4 py-3
-                text-[#5A3E2B] placeholder:text-[#8B6B4A]
+                text-[#5B3A29] placeholder:text-[#8B6B4A]
                           focus:outline-none focus:ring-2 focus:ring-[#8B6B4A]"
                   autoFocus
               />
