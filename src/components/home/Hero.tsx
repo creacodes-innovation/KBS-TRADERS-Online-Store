@@ -5,7 +5,7 @@ import heroImage from "@/assets/hero-spices.png";
 
 const Hero = () => {
   return (
-    <section className="relative overflow-hidden bg-[#F8EFE5] text-[#5A3E2B] min-h-[100svh]">
+    <section className="relative overflow-hidden bg-[#F8EFE5] text-[#5A3E2B] min-h-[100dvh]">
       
       {/* Background Image */}
       <div className="absolute inset-0">
