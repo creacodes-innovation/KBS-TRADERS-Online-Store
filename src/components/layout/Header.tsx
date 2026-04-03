@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { useCart } from '@/context/CartContext';
 import { cn } from '@/lib/utils';
 import logo from '@/assets/logo.png';
+import navbarBg from '@/assets/navbar-bg.png';
 
 const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -38,11 +39,16 @@ const Header = () => {
 
   return (
     <header
+      style={{
+        backgroundImage: `url(${navbarBg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
       className={cn(
         'sticky top-0 z-50 w-full transition-all duration-300',
         isScrolled
-          ? 'bg-primary shadow-elevated'
-          : 'bg-primary/95 backdrop-blur-sm'
+          ? 'shadow-elevated'
+          : 'backdrop-blur-sm'
       )}
     >
       <div className="container mx-auto px-4">
@@ -54,22 +60,22 @@ const Header = () => {
                 variant="ghost"
                 size="icon"
                 onClick={() => navigate(-1)}
-                className="text-primary-foreground hover:bg-emerald-light"
+                className="text-[#5B3A29] hover:bg-[#E8D2B8]"
               >
                 <ArrowLeft className="h-5 w-5" />
               </Button>
             )}
             <Link to="/" className="flex items-center gap-2">
               {/* Logo Image and Text Container */}
-              <img 
-                src={logo} 
-                alt="KBS Traders - Since 1970" 
+              <img
+                src={logo}
+                alt="KBS Traders - Since 1970"
                 className="h-10 md:h-14 w-auto"
               />
-              <h1 className="text-2xl md:text-3xl font-serif font-bold text-primary-foreground">
-                <span className="text-accent">KBS</span> Traders 
+              <h1 className="text-2xl md:text-3xl font-serif font-bold leading-tight">
+                <span className="text-accent">KBS</span> TRADERS
               </h1>
-           
+
             </Link>
           </div>
 
@@ -81,9 +87,9 @@ const Header = () => {
                 placeholder="Search products..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 bg-emerald-light border-0 text-primary-foreground placeholder:text-primary-foreground/60 focus-visible:ring-gold"
+                className="w-full pl-10 bg-[#F5E6D3]/80 backdrop-blur-sm border border-[#E8D2B8] text-[#5A3E2B] placeholder:text-[#8B6B55] focus-visible:ring-[#C89B5E]"
               />
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-primary-foreground/60" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#8B6B55]" />
             </form>
           </div>
 
@@ -93,7 +99,7 @@ const Header = () => {
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden text-primary-foreground hover:bg-emerald-light"
+              className="md:hidden text-[#5A3E2B] hover:bg-[#E8D2B8]"
               onClick={() => setIsSearchOpen(!isSearchOpen)}
             >
               {isSearchOpen ? <X className="h-5 w-5" /> : <Search className="h-5 w-5" />}
@@ -103,17 +109,17 @@ const Header = () => {
             <Button
               variant="ghost"
               size="icon"
-              className="relative text-primary-foreground hover:bg-emerald-light"
+              className="relative leading-tight hover:bg-[#E8D2B8] p-3"
               onClick={openCart}
             >
-              <ShoppingBag className="h-5 w-5" />
+              <ShoppingBag className="h-7 w-7" />
+
               {itemCount > 0 && (
-                <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-gold text-xs font-semibold text-gold-foreground flex items-center justify-center animate-scale-in">
+                <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-[#C89B5E] text-white text-xs font-semibold flex items-center justify-center">
                   {itemCount}
                 </span>
               )}
             </Button>
-
             {/* Mobile Menu Toggle */}
             <Button
               variant="ghost"

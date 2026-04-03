@@ -15,10 +15,10 @@ const CategoryPage = () => {
   const { data: products, isLoading: productsLoading } = useProducts(slug);
   const { data: categories } = useCategories();
 
-    // Offer products filter
+  // Offer products filter
   const offerProducts = products?.filter((product) => product.is_offer === true);
 
-    // If slug = offers show offerProducts otherwise show normal products
+  // If slug = offers show offerProducts otherwise show normal products
   const displayProducts = slug === "offers" ? offerProducts : products;
 
   const currentCategory = categories?.find((c) => c.slug === slug);
@@ -35,16 +35,27 @@ const CategoryPage = () => {
       <main className="flex-1 bg-background">
 
         {/* Category Header */}
-        <section className="bg-gradient-emerald text-primary-foreground py-12">
-          <div className="container mx-auto px-4">
+        <section
+          className="relative text-primary-foreground py-12"
+          style={{
+            backgroundImage: "url('/footer-bg.png')", // put image in public folder
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            opacity: '0.90'
+          }}
+        >
+          {/* Overlay for readability */}
+          <div className="absolute inset-0 "></div>
 
-            <h1 className="font-display text-3xl md:text-4xl font-bold mb-2">
+          <div className="relative container mx-auto px-4">
+
+            <h1 className="font-display text-3xl text-[#5B3A29] md:text-4xl font-bold mb-2 leading-tight">
               {slug === "offers"
                 ? "🔥 Special Offers"
                 : currentCategory?.name || "Products"}
             </h1>
 
-            <p className="text-primary-foreground/80">
+            <p className="text-[#5B3A32] leading-tight">
               {slug === "offers"
                 ? "Best discounted products available now"
                 : `Explore our premium selection of ${currentCategory?.name?.toLowerCase() || "products"}`}
