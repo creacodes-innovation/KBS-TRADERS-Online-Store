@@ -92,7 +92,7 @@ const CategoryPage = () => {
             ) : (
 
               <div className="text-center py-16">
-                <p className="text-muted-foreground text-lg">
+                <p className="text-[#5B3A29] text-lg">
                   No products found in this category.
                 </p>
               </div>

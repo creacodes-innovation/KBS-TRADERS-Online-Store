@@ -62,7 +62,7 @@ const CategoryGrid = () => {
                 <Link
                   key={category.id}
                   to={`/category/${category.slug}`}
-                  className="flex items-center gap-2 px-4 py-2 bg-[#f4f6f5] hover:bg-gray-200 text-[#2d5a50] rounded-full text-sm font-semibold transition-all whitespace-nowrap shadow-sm flex-shrink-0 group"
+                  className="flex items-center gap-2 px-4 py-2 bg-[#E6D3B3] hover:bg-gray-200 text-[#5B3A29] rounded-full text-sm font-semibold transition-all whitespace-nowrap shadow-sm flex-shrink-0 group"
                 >
                   <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white border border-gray-100 flex-shrink-0 transition-colors group-hover:text-[#0a231b]">
                     <IconComponent size={14} strokeWidth={2.5} />
@@ -84,7 +84,7 @@ const CategoryGrid = () => {
           <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground">
             Shop by Category
           </h2>
-          <p className="text-muted-foreground text-sm mt-1">Explore our premium collection</p>
+          <p className="text-[#5B3A29] text-sm mt-1">Explore our premium collection</p>
         </div>
 
         {/* 3. MAIN CATEGORY GRID */}
@@ -110,7 +110,7 @@ const CategoryGrid = () => {
                     />
                   </div>
                   <div className="mt-3 text-center">
-                    <h3 className="text-xs md:text-sm font-bold text-gray-800 uppercase tracking-tight group-hover:text-[#2d5a50]">
+                    <h3 className="text-xs md:text-sm font-bold text-gray-800 uppercase tracking-tight group-hover:text-[#5B3A29]">
                       {category.name}
                     </h3>
                   </div>

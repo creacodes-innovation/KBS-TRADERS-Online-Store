@@ -5,6 +5,7 @@ import Footer from '@/components/layout/Footer';
 import CartSidebar from '@/components/cart/CartSidebar';
 import ProductCard from '@/components/products/ProductCard';
 import { Skeleton } from '@/components/ui/skeleton';
+import navbarBg from '@/assets/navbar-bg.png';
 import { Search } from 'lucide-react';
 
 const SearchPage = () => {
@@ -17,15 +18,22 @@ const SearchPage = () => {
       <Header />
       <main className="flex-1 bg-background">
         {/* Search Header */}
-        <section className="bg-gradient-emerald text-primary-foreground py-12">
+        <section className=" text-primary-foreground py-12"
+        style={{
+           backgroundImage: `url(${navbarBg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        opacity: "0.90"
+        }}
+        >
           <div className="container mx-auto px-4">
             <div className="flex items-center gap-3 mb-2">
               <Search className="h-6 w-6 text-gold" />
-              <h1 className="font-display text-3xl md:text-4xl font-bold">
+              <h1 className="font-display text-[#5B3A29] text-3xl md:text-4xl font-bold">
                 Search Results
               </h1>
             </div>
-            <p className="text-primary-foreground/80">
+            <p className="text-[#5B3A29]/80">
               {query ? `Showing results for "${query}"` : 'Enter a search term to find products'}
             </p>
           </div>
@@ -37,7 +45,7 @@ const SearchPage = () => {
             {!query || query.length < 2 ? (
               <div className="text-center py-16">
                 <Search className="h-16 w-16 mx-auto text-muted-foreground/30 mb-4" />
-                <p className="text-muted-foreground text-lg">
+                <p className="text-[#5B3A29] text-lg">
                   Enter at least 2 characters to search
                 </p>
               </div>

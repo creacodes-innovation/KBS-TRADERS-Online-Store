@@ -137,8 +137,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
               className={cn(
                 "px-3 py-1.5 text-xs font-medium rounded-full border transition-all",
                 selectedWeight === opt.value
-                  ? "bg-primary text-primary-foreground border-primary"
-                  : "bg-background text-foreground border-border hover:border-primary",
+                  ? "bg-[#E6D3B3] text-[#5B3A29] border-[#5B3A29]"
+                  : "bg-background text-[#5B3A29] border-border hover:border-[#5B3A29]",
                 product.is_sold_out && "opacity-50 cursor-not-allowed"
               )}
             >
@@ -151,7 +151,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
             {mrpPrice && currentPrice && mrpPrice > currentPrice && (
-              <span className="text-xs text-muted-foreground line-through">
+              <span className="text-xs text-[#5B3A29] line-through">
                 ₹{mrpPrice.toLocaleString("en-IN")}
               </span>
             )}
@@ -170,7 +170,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             size="sm"
             className={cn(
               "transition-all px-4",
-              justAdded && "bg-emerald text-primary-foreground"
+              justAdded && "bg-[#5B3A29] text-[#5B3A29]"
             )}
           >
             {justAdded ? (

@@ -72,7 +72,7 @@ const Header = () => {
                 alt="KBS Traders - Since 1970"
                 className="h-10 md:h-14 w-auto"
               />
-              <h1 className="text-2xl md:text-3xl font-serif font-bold leading-tight">
+              <h1 className="text-2xl md:text-3xl font-serif font-bold text-[#5B3A29]">
                 <span className="text-accent">KBS</span> TRADERS
               </h1>
 
@@ -124,7 +124,7 @@ const Header = () => {
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden text-primary-foreground hover:bg-emerald-light"
+              className="md:hidden text-[#5B3A29] hover:hover:bg-[#E8D2B8]"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -154,14 +154,14 @@ const Header = () => {
             <div className="flex flex-col gap-2">
               <Link
                 to="/"
-                className="px-4 py-2 text-primary-foreground hover:bg-emerald-light rounded-md transition-colors"
+                className="px-4 py-2 text-[#5B3A29] hover:hover:bg-[#E8D2B8] rounded-md transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Home
               </Link>
               <Link
                 to="/admin"
-                className="px-4 py-2 text-primary-foreground/80 hover:bg-emerald-light rounded-md transition-colors text-sm"
+                className="px-4 py-2 text-[#5B3A29] hover:hover:bg-[#E8D2B8] rounded-md transition-colors text-sm"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Admin

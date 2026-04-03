@@ -37,6 +37,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useCategories, useProducts } from "@/hooks/useProducts";
 import { toast } from "sonner";
 import { Product } from "@/types/store";
+import navbarBg from '@/assets/navbar-bg.png';
 
 const ADMIN_PASSWORD = "kbs2024";
 
@@ -270,7 +271,13 @@ const AdminPage = () => {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-emerald p-4">
+      <div className="min-h-screen flex items-center justify-center  p-4"
+      style={{
+        backgroundImage: `url(${navbarBg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+      >
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <div className="mx-auto w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
@@ -288,7 +295,7 @@ const AdminPage = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter admin password"
-                  className="pr-10"
+                  className="pr-10 placeholder:text-[#5B3A29] "
                 />
                 <Button
                   type="button"
@@ -316,13 +323,19 @@ const AdminPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="bg-primary text-primary-foreground py-4 sticky top-0 z-40">
+      <header className=" text-primary-foreground py-4 sticky top-0 z-40"
+       style={{
+        backgroundImage: `url(${navbarBg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+      >
         <div className="container mx-auto px-4 flex items-center justify-between">
-          <h1 className="font-display text-xl font-bold">KBS Traders Admin</h1>
+          <h1 className="font-display text-[#5B3A29] text-xl font-bold">KBS Traders Admin</h1>
           <Button
             variant="ghost"
             onClick={handleLogout}
-            className="text-primary-foreground hover:bg-emerald-light"
+            className="text-[#5B3A29] hover:bg-[#E6D3B3]"
           >
             <LogOut className="h-4 w-4 mr-2" />
             Logout
@@ -338,12 +351,12 @@ const AdminPage = () => {
 
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#5B3A29]" />
               <Input
                 placeholder="Search products..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-9 w-full sm:w-[250px]"
+                className="pl-9 w-full sm:w-[250px] placeholder:text-[#5B3A29]"
               />
             </div>
 
@@ -352,11 +365,11 @@ const AdminPage = () => {
               onValueChange={setSelectedCategory}
             >
               <SelectTrigger className="w-full sm:w-[180px]">
-                <Filter className="h-4 w-4 mr-2 text-muted-foreground" />
+                <Filter className="h-4 w-4 mr-2 text-[#5B3A29]" />
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All Categories</SelectItem>
+                <SelectItem value="all" className="text-[#5B3A29]">All Categories</SelectItem>
                 {categories?.map((cat) => (
                   <SelectItem key={cat.id} value={cat.id}>
                     {cat.name}
@@ -681,7 +694,7 @@ const AdminPage = () => {
                         </span>
                       </div>
                     </td>
-                    <td className="p-4 text-muted-foreground hidden md:table-cell">
+                    <td className="p-4 text-[#5B3A29] hidden md:table-cell">
                       {product.category?.name || "-"}
                     </td>
                     <td className="p-4 text-xs text-foreground hidden sm:table-cell">
