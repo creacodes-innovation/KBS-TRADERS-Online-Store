@@ -141,7 +141,7 @@ const Header = () => {
                 placeholder="Search products..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-emerald-light border-0 text-primary-foreground placeholder:text-primary-foreground/60 focus-visible:ring-gold"
+                className="w-full bg-[#F5E6D3]/80 border-0 text-primary-foreground placeholder:text-primary-foreground/60 focus-visible:ring-gold"
                 autoFocus
               />
             </form>

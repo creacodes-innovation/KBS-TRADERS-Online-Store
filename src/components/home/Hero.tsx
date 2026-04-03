@@ -5,18 +5,18 @@ import heroImage from "@/assets/hero-spices.png";
 
 const Hero = () => {
   return (
-    <section className="relative  overflow-hidden   bg-[#F8EFE5] text-[#5A3E2B]">
+    <section className="relative overflow-hidden bg-[#F8EFE5] text-[#5A3E2B] min-h-[100svh]">
       
       {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover  bg-center"
-        style={{ backgroundImage: `url(${heroImage})` }}
-      >
-        {/* Beige Gradient Overlay */}
-        <div className="absolute inset-0 " />
+      <div className="absolute inset-0">
+        <img
+          src={heroImage}
+          alt="hero"
+          className="w-full h-full object-cover"
+        />
       </div>
 
-      <div className="container relative mx-auto px-4 py-16 md:py-24">
+      <div className="container relative mx-auto px-4 py-16 md:py-24 z-10">
         <div className="max-w-2xl">
 
           {/* Badge */}
