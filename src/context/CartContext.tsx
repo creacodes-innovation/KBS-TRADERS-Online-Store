@@ -26,12 +26,18 @@ export const useCart = () => {
 
 const getPrice = (product: Product, weight: WeightOption): number => {
   switch (weight) {
-    case '250g':
+    case "250g":
       return product.price_250g || 0;
-    case '500g':
+    case "500g":
       return product.price_500g || 0;
-    case '1kg':
+    case "1kg":
       return product.price_1kg || 0;
+    case "pcs":
+      return product.price_pcs || 0;
+    case "nos":
+      return product.price_nos || 0;
+    case "pac":
+      return product.price_pac || 0;
     default:
       return 0;
   }

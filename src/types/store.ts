@@ -17,9 +17,10 @@ export interface Product {
   price_250g: number | null;
   price_500g: number | null;
   price_1kg: number | null;
-  pcs: number | null;  
-  nos: number | null;   
-  pac: number | null;
+  price_pcs: number | null;
+  price_nos: number | null;
+  price_pac: number | null;
+  is_auto_price?: boolean;
   is_sold_out: boolean;
   is_featured: boolean;
   is_offer?: boolean;
@@ -27,8 +28,13 @@ export interface Product {
   updated_at: string;
   category?: Category;
 }
-
-export type WeightOption = '250g' | '500g' | '1kg' | 'pcs' | 'nos' | 'pac';
+export type WeightOption =
+  | "250g"
+  | "500g"
+  | "1kg"
+  | "pcs"
+  | "nos"
+  | "pac";
 
 export interface CartItem {
   product: Product;

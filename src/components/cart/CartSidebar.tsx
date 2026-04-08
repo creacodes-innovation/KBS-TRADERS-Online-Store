@@ -28,6 +28,8 @@ const CartSidebar = () => {
     );
 
     // 2. Message format cheyyunnu
+    
+
     const message = `🛒 *New Order from KBS Traders*
 
 *Customer Details:*
@@ -60,6 +62,7 @@ Thank you for your order!`;
       closeCart();
     }, 2000);
   };
+ 
 
   const isFormValid = checkoutForm.name.trim() && checkoutForm.phone.trim() && checkoutForm.address.trim();
 

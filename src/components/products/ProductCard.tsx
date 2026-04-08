@@ -13,6 +13,9 @@ const weightOptions: { value: WeightOption; label: string }[] = [
   { value: "250g", label: "250g" },
   { value: "500g", label: "500g" },
   { value: "1kg", label: "1kg" },
+   { value: "pcs", label: "Pcs" },
+  { value: "nos", label: "Nos" },
+  { value: "pac", label: "Pac" },
 ];
 
 const ProductCard = ({ product }: ProductCardProps) => {
@@ -48,6 +51,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
         return product.price_500g ?? null;
       case "250g":
         return product.price_250g ?? null;
+        case "pcs":
+        return product.price_pcs ?? null;
+      case "nos":
+        return product.price_nos ?? null;
+      case "pac":
+        return product.price_pac ?? null;
       default:
         return null;
     }
@@ -76,6 +85,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
         return Math.round(mrp / 2);
       case "250g":
         return Math.round(mrp / 4);
+      case "pcs":
+      case "nos":
+      case "pac":
+        return Math.round(mrp); 
       default:
         return null;
     }
