@@ -1,15 +1,15 @@
-import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
-import { Product, Category } from '@/types/store';
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { Product, Category } from "@/types/store";
 
 export const useCategories = () => {
   return useQuery({
-    queryKey: ['categories'],
+    queryKey: ["categories"],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('categories')
-        .select('*')
-        .order('display_order', { ascending: true });
+        .from("categories")
+        .select("*")
+        .order("display_order", { ascending: true });
 
       if (error) throw error;
       return data as Category[];
@@ -19,30 +19,39 @@ export const useCategories = () => {
 
 export const useProducts = (categorySlug?: string) => {
   return useQuery({
-    queryKey: ['products', categorySlug],
+    queryKey: ["products", categorySlug],
     queryFn: async () => {
       let query = supabase
-        .from('products')
+        .from("products")
         .select(`
           *,
           category:categories(*)
         `)
-        .order('created_at', { ascending: false });
+        .order("created_at", { ascending: false });
 
-      if (categorySlug) {
+      // ✅ only apply category filter if normal category
+      if (categorySlug && categorySlug !== "offers") {
         const { data: category } = await supabase
-          .from('categories')
-          .select('id')
-          .eq('slug', categorySlug)
+          .from("categories")
+          .select("id")
+          .eq("slug", categorySlug)
           .single();
 
         if (category) {
-          query = query.eq('category_id', category.id);
+          query = query.eq("category_id", category.id);
         }
       }
 
       const { data, error } = await query;
       if (error) throw error;
+
+      // ✅ special virtual offers category
+      if (categorySlug === "offers") {
+        return (data as Product[]).filter(
+          (product) => product.is_offer === true
+        );
+      }
+
       return data as Product[];
     },
   });
@@ -50,15 +59,15 @@ export const useProducts = (categorySlug?: string) => {
 
 export const useProduct = (id: string) => {
   return useQuery({
-    queryKey: ['product', id],
+    queryKey: ["product", id],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('products')
+        .from("products")
         .select(`
           *,
           category:categories(*)
         `)
-        .eq('id', id)
+        .eq("id", id)
         .single();
 
       if (error) throw error;
@@ -70,16 +79,16 @@ export const useProduct = (id: string) => {
 
 export const useSearchProducts = (searchTerm: string) => {
   return useQuery({
-    queryKey: ['products', 'search', searchTerm],
+    queryKey: ["products", "search", searchTerm],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('products')
+        .from("products")
         .select(`
           *,
           category:categories(*)
         `)
-        .ilike('title', `%${searchTerm}%`)
-        .order('title', { ascending: true });
+        .ilike("title", `%${searchTerm}%`)
+        .order("title", { ascending: true });
 
       if (error) throw error;
       return data as Product[];

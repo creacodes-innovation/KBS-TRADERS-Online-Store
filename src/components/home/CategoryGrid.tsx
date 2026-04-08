@@ -31,48 +31,67 @@ const CategoryGrid = () => {
   }
 
   // Updated EXCLUSIVE to TRY NEW in the priority list
-  const priorityNames = ['TRY NEW', 'COMBOS', 'GIFTING', 'OFFERS'];
+  const priorityNames = ['TRY NEW', 'COMBOS', 'GIFTING'];
   
   const priorityCategories = categories?.filter(cat => 
     priorityNames.includes(cat.name.toUpperCase())
   ).sort((a, b) => priorityNames.indexOf(a.name.toUpperCase()) - priorityNames.indexOf(b.name.toUpperCase()));
 
-  const mainCategories = categories?.filter(cat => 
-    !priorityNames.includes(cat.name.toUpperCase())
-  ).sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
-
+  const mainCategories = categories
+  ?.filter(
+    (cat) =>
+      !priorityNames.includes(cat.name.toUpperCase()) &&
+      cat.slug !== "offers"
+  )
+  .sort(
+    (a, b) => (a.display_order || 0) - (b.display_order || 0)
+  );
   return (
     <section id="categories" className="py-6 bg-white">
       
       {/* 1. NAVBAR UI SECTION (With X-Axis Scroll Support) */}
       <div className="container mx-auto px-4">
-        <div className="flex items-center gap-3 mb-6 overflow-x-auto pb-4 no-scrollbar scroll-smooth antialiased" 
-             style={{ WebkitOverflowScrolling: 'touch' }}> 
-          
-          {isLoading ? (
-            Array.from({ length: 4 }).map((_, i) => (
-              <Skeleton key={i} className="h-10 w-28 rounded-full flex-shrink-0" />
-            ))
-          ) : (
-            priorityCategories?.map((category) => {
-              // Get the mapped icon or fallback to LayoutGrid
-              const IconComponent = categoryIcons[category.name.toUpperCase()] || LayoutGrid;
-              
-              return (
-                <Link
-                  key={category.id}
-                  to={`/category/${category.slug}`}
-                  className="flex items-center gap-2 px-4 py-2 bg-[#E6D3B3] hover:bg-gray-200 text-[#5B3A29] rounded-full text-sm font-semibold transition-all whitespace-nowrap shadow-sm flex-shrink-0 group"
-                >
-                  <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white border border-gray-100 flex-shrink-0 transition-colors group-hover:text-[#0a231b]">
-                    <IconComponent size={14} strokeWidth={2.5} />
-                  </div>
-                  {category.name}
-                </Link>
-              );
-            })
-          )}
+       <div
+  className="flex items-center gap-3 mb-6 overflow-x-auto pb-4 no-scrollbar scroll-smooth antialiased"
+  style={{ WebkitOverflowScrolling: "touch" }}
+>
+  {isLoading ? (
+    Array.from({ length: 4 }).map((_, i) => (
+      <Skeleton key={i} className="h-10 w-28 rounded-full flex-shrink-0" />
+    ))
+  ) : (
+    <>
+      {priorityCategories?.map((category) => {
+        const IconComponent =
+          categoryIcons[category.name.toUpperCase()] || LayoutGrid;
+
+        return (
+          <Link
+            key={category.id}
+            to={`/category/${category.slug}`}
+            className="flex items-center gap-2 px-4 py-2 bg-[#E6D3B3] hover:bg-gray-200 text-[#5B3A29] rounded-full text-sm font-semibold transition-all whitespace-nowrap shadow-sm flex-shrink-0 group"
+          >
+            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white border border-gray-100 flex-shrink-0">
+              <IconComponent size={14} strokeWidth={2.5} />
+            </div>
+            {category.name}
+          </Link>
+        );
+      })}
+
+      {/* ✅ Special Virtual Offers */}
+      <Link
+        to="/category/offers"
+        className="flex items-center gap-2 px-4 py-2 bg-[#E6D3B3] hover:bg-gray-200 text-[#5B3A29] rounded-full text-sm font-semibold transition-all whitespace-nowrap shadow-sm flex-shrink-0 group"
+      >
+        <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white border border-gray-100 flex-shrink-0">
+          <Tag size={14} strokeWidth={2.5} />
         </div>
+        OFFERS
+      </Link>
+    </>
+  )}
+</div>
       </div>
 
       {/* --- Full Width Border Line --- */}

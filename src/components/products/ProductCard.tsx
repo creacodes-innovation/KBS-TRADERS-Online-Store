@@ -13,7 +13,7 @@ const weightOptions: { value: WeightOption; label: string }[] = [
   { value: "250g", label: "250g" },
   { value: "500g", label: "500g" },
   { value: "1kg", label: "1kg" },
-   { value: "pcs", label: "Pcs" },
+  { value: "pcs", label: "Pcs" },
   { value: "nos", label: "Nos" },
   { value: "pac", label: "Pac" },
 ];
@@ -51,7 +51,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         return product.price_500g ?? null;
       case "250g":
         return product.price_250g ?? null;
-        case "pcs":
+      case "pcs":
         return product.price_pcs ?? null;
       case "nos":
         return product.price_nos ?? null;
@@ -63,11 +63,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   const availableWeights = weightOptions.filter(
-    (opt) => getPrice(opt.value) !== null
+    (opt) => getPrice(opt.value) !== null,
   );
 
   const [selectedWeight, setSelectedWeight] = useState<WeightOption>(
-    availableWeights.length > 0 ? availableWeights[0].value : "250g"
+    availableWeights.length > 0 ? availableWeights[0].value : "250g",
   );
 
   const currentPrice = getPrice(selectedWeight);
@@ -88,7 +88,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       case "pcs":
       case "nos":
       case "pac":
-        return Math.round(mrp); 
+        return Math.round(mrp);
       default:
         return null;
     }
@@ -125,15 +125,24 @@ const ProductCard = ({ product }: ProductCardProps) => {
           </div>
         )}
 
+        {/* ✅ Featured Badge → Top Left */}
         {product.is_featured && !product.is_sold_out && (
-          <div className="absolute top-3 left-3">
-            <span className="bg-gold text-gold-foreground px-3 py-1 rounded-full text-xs font-semibold">
+          <div className="absolute top-3 left-3 z-10">
+            <span className="bg-gold text-gold-foreground px-3 py-1 rounded-full text-xs font-semibold shadow-md">
               Featured
             </span>
           </div>
         )}
-      </div>
 
+        {/* ✅ Offer Badge → Top Right */}
+        {product.is_offer && !product.is_sold_out && (
+          <div className="absolute top-3 right-3 z-10">
+            <span className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-md">
+              OFFER
+            </span>
+          </div>
+        )}
+      </div>
       {/* Content */}
       <div className="p-4">
         <h3 className="text-[15px] font-normal text-foreground mt-1 mb-3 line-clamp-1 tracking-tight capitalize">
@@ -152,7 +161,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
                 selectedWeight === opt.value
                   ? "bg-[#E6D3B3] text-[#5B3A29] border-[#5B3A29]"
                   : "bg-background text-[#5B3A29] border-border hover:border-[#5B3A29]",
-                product.is_sold_out && "opacity-50 cursor-not-allowed"
+                product.is_sold_out && "opacity-50 cursor-not-allowed",
               )}
             >
               {opt.label}
@@ -183,7 +192,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             size="sm"
             className={cn(
               "transition-all px-4",
-              justAdded && "bg-[#5B3A29] text-[#5B3A29]"
+              justAdded && "bg-[#5B3A29] text-[#5B3A29]",
             )}
           >
             {justAdded ? (
