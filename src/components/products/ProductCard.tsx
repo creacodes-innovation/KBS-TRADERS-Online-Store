@@ -125,15 +125,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
           </div>
         )}
 
-        {/* ✅ Featured Badge → Top Left */}
-        {product.is_featured && !product.is_sold_out && (
-          <div className="absolute top-3 left-3 z-10">
-            <span className="bg-gold text-gold-foreground px-3 py-1 rounded-full text-xs font-semibold shadow-md">
-              Featured
-            </span>
-          </div>
-        )}
-
         {/* ✅ Offer Badge → Top Right */}
         {product.is_offer && !product.is_sold_out && (
           <div className="absolute top-3 right-3 z-10">
