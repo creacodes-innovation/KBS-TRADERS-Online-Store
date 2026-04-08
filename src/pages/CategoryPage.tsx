@@ -49,7 +49,7 @@ const CategoryPage = () => {
           <div className="relative container mx-auto px-4">
             <h1 className="font-display text-3xl text-[#5B3A29] md:text-4xl font-bold mb-2 leading-tight">
               {slug === "offers"
-                ? "🔥 Special Offers"
+                ? "Special Offers"
                 : currentCategory?.name || "Products"}
             </h1>
 
