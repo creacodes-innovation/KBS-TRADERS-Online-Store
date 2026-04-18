@@ -161,13 +161,13 @@ const Header = () => {
               >
                 Home
               </Link>
-              <Link
+              {/* <Link
                 to="/admin"
                 className="px-4 py-2 text-[#5B3A29] hover:hover:bg-[#E8D2B8] rounded-md transition-colors text-sm"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Admin
-              </Link>
+              </Link> */}
             </div>
           </nav>
         )}
