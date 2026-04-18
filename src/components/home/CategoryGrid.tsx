@@ -99,7 +99,7 @@ const CategoryGrid = () => {
         <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white border border-gray-100">
           <IconComponent size={14} strokeWidth={2.5} />
         </div>
-        {category.name}
+        {category.name.toUpperCase()}
       </Link>
     );
   })}

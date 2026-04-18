@@ -73,7 +73,7 @@ const Header = () => {
                 className="h-10 md:h-14 w-auto"
               />
               <h1 className="text-2xl md:text-3xl font-serif font-bold text-[#c1a865]">
-                <span className="">K B S</span> TRADERS
+                <span className="">KBS</span> TRADERS
               </h1>
 
             </Link>
