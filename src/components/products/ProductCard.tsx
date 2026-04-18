@@ -176,28 +176,28 @@ const ProductCard = ({ product }: ProductCardProps) => {
             )}
           </div>
 
-          <Button
-            onClick={handleAddToCart}
-            disabled={product.is_sold_out || !currentPrice}
-            variant={justAdded ? "default" : "gold"}
-            size="sm"
-            className={cn(
-              "transition-all px-4",
-              justAdded && "bg-[#5B3A29] text-[#5B3A29]",
-            )}
-          >
-            {justAdded ? (
-              <>
-                <Check className="h-4 w-4 mr-1" />
-                Added
-              </>
-            ) : (
-              <>
-                <ShoppingBag className="h-4 w-4 mr-1" />
-                Add
-              </>
-            )}
-          </Button>
+       <Button
+  onClick={handleAddToCart}
+  disabled={product.is_sold_out || !currentPrice}
+  variant={justAdded ? "default" : "gold"}
+  size="sm"
+  className={cn(
+    "transition-all px-3 sm:px-4 md:px-5 flex items-center justify-center",
+    justAdded && "bg-[#5B3A29] text-white"
+  )}
+>
+  {justAdded ? (
+    <>
+      <Check className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+      <span className="text-xs sm:text-sm">Added</span>
+    </>
+  ) : (
+    <>
+      <ShoppingBag className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+      <span className="text-xs sm:text-sm">Add</span>
+    </>
+  )}
+</Button>
         </div>
       </div>
     </div>
