@@ -125,8 +125,8 @@ const CategoryGrid = () => {
           {isLoading
             ? Array.from({ length: 6 }).map((_, i) => (
                 <div key={i} className="flex flex-col items-center">
-                  <Skeleton className="w-28 h-28 md:w-36 md:h-36 rounded-xl" />
-                  <Skeleton className="w-20 h-4 mt-4" />
+                  <Skeleton className="w-40 h-35 md:w-36 md:h-36 rounded-xl" />
+                  <Skeleton className="w-30 h-14 mt-4" />
                 </div>
               ))
             : mainCategories?.map((category) => (
@@ -135,7 +135,7 @@ const CategoryGrid = () => {
                   to={`/category/${category.slug}`}
                   className="group flex flex-col items-center transition-all duration-300"
                 >
-                  <div className="relative w-28 h-28 md:w-36 md:h-36 flex items-center justify-center bg-gray-50 rounded-2xl overflow-hidden group-hover:shadow-lg transition-all border border-gray-100">
+                  <div className="relative w-35 h-30 md:w-36 md:h-36 flex items-center justify-center bg-gray-50 rounded-2xl overflow-hidden group-hover:shadow-lg transition-all border border-gray-100">
                     <img
                       src={category.image_url || '/placeholder.svg'}
                       alt={category.name}
@@ -143,7 +143,7 @@ const CategoryGrid = () => {
                     />
                   </div>
                   <div className="mt-3 text-center">
-                    <h3 className="text-xs md:text-sm font-bold text-gray-800 uppercase tracking-tight group-hover:text-[#5B3A29]">
+                    <h3 className="text-xl md:text-sm font-bold text-gray-800 uppercase tracking-tight group-hover:text-[#5B3A29]">
                       {category.name}
                     </h3>
                   </div>

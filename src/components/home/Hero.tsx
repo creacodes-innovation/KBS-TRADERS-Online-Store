@@ -38,7 +38,7 @@ const Hero = () => {
           </h1>
 
           {/* Description */}
-          <p className="text-lg md:text-xl text-[#5a3e2b] mb-8 font-bold  leading-relaxed">
+          <p className="text-lg md:text-xl text-[#21130d] mb-8 font-bold  leading-relaxed">
             Experience world-class quality with our carefully curated Dates, Nuts,
             Dry fruits, Spices, Chocolates and luxury gift hampers, delivered fresh
             to your doorstep.
