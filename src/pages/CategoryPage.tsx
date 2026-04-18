@@ -50,7 +50,7 @@ const CategoryPage = () => {
         <section
           className="relative text-primary-foreground py-12"
           style={{
-            backgroundImage: "url('/footer-bg.png')",
+            backgroundImage: "url('')",
             backgroundSize: "cover",
             backgroundPosition: "center",
             opacity: "0.90",
