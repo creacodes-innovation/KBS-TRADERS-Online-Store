@@ -14,7 +14,7 @@ const CategoryGrid = () => {
 
   // Mapping names to React Icons
   const categoryIcons: Record<string, React.ElementType> = {
-    'TRY NEW': Star, // Updated from EXCLUSIVE
+    'TRY NEW ': Star, // Updated from EXCLUSIVE
     COMBOS: Package,
     GIFTING: Gift,
     OFFERS: Tag,
@@ -31,17 +31,19 @@ const CategoryGrid = () => {
   }
 
   // Updated EXCLUSIVE to TRY NEW in the priority list
-  const priorityNames = ['TRY NEW', 'COMBOS', 'GIFTING'];
+  const priorityNames = ['COMBOS', 'GIFTING'];
   
   const priorityCategories = categories?.filter(cat => 
     priorityNames.includes(cat.name.toUpperCase())
   ).sort((a, b) => priorityNames.indexOf(a.name.toUpperCase()) - priorityNames.indexOf(b.name.toUpperCase()));
 
-  const mainCategories = categories
+ const mainCategories = categories
   ?.filter(
     (cat) =>
       !priorityNames.includes(cat.name.toUpperCase()) &&
-      cat.slug !== "offers"
+      cat.slug !== "offers" &&
+      cat.slug !== "trynew" &&
+      cat.slug !== "try-new"
   )
   .sort(
     (a, b) => (a.display_order || 0) - (b.display_order || 0)
@@ -60,36 +62,48 @@ const CategoryGrid = () => {
       <Skeleton key={i} className="h-10 w-28 rounded-full flex-shrink-0" />
     ))
   ) : (
-    <>
-      {priorityCategories?.map((category) => {
-        const IconComponent =
-          categoryIcons[category.name.toUpperCase()] || LayoutGrid;
+   <>
+  {/* TRY NEW */}
+  <Link
+    to="/category/trynew"
+    className="flex items-center gap-2 px-4 py-2 bg-[#E6D3B3] hover:bg-gray-200 text-[#5B3A29] rounded-full text-sm font-semibold transition-all whitespace-nowrap shadow-sm flex-shrink-0 group"
+  >
+    <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white border border-gray-100">
+      <Star size={14} strokeWidth={2.5} />
+    </div>
+    TRY NEW
+  </Link>
 
-        return (
-          <Link
-            key={category.id}
-            to={`/category/${category.slug}`}
-            className="flex items-center gap-2 px-4 py-2 bg-[#E6D3B3] hover:bg-gray-200 text-[#5B3A29] rounded-full text-sm font-semibold transition-all whitespace-nowrap shadow-sm flex-shrink-0 group"
-          >
-            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white border border-gray-100 flex-shrink-0">
-              <IconComponent size={14} strokeWidth={2.5} />
-            </div>
-            {category.name}
-          </Link>
-        );
-      })}
+  {/* OFFERS */}
+  <Link
+    to="/category/offers"
+    className="flex items-center gap-2 px-4 py-2 bg-[#E6D3B3] hover:bg-gray-200 text-[#5B3A29] rounded-full text-sm font-semibold transition-all whitespace-nowrap shadow-sm flex-shrink-0 group"
+  >
+    <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white border border-gray-100">
+      <Tag size={14} strokeWidth={2.5} />
+    </div>
+    OFFERS
+  </Link>
 
-      {/* ✅ Special Virtual Offers */}
+  {/* COMBOS + GIFTING */}
+  {priorityCategories?.map((category) => {
+    const IconComponent =
+      categoryIcons[category.name.toUpperCase()] || LayoutGrid;
+
+    return (
       <Link
-        to="/category/offers"
+        key={category.id}
+        to={`/category/${category.slug}`}
         className="flex items-center gap-2 px-4 py-2 bg-[#E6D3B3] hover:bg-gray-200 text-[#5B3A29] rounded-full text-sm font-semibold transition-all whitespace-nowrap shadow-sm flex-shrink-0 group"
       >
-        <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white border border-gray-100 flex-shrink-0">
-          <Tag size={14} strokeWidth={2.5} />
+        <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white border border-gray-100">
+          <IconComponent size={14} strokeWidth={2.5} />
         </div>
-        OFFERS
+        {category.name}
       </Link>
-    </>
+    );
+  })}
+</>
   )}
 </div>
       </div>

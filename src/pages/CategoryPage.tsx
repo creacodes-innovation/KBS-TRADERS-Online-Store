@@ -10,17 +10,29 @@ import { useEffect } from "react";
 const CategoryPage = () => {
   const { slug } = useParams<{ slug: string }>();
 
-  // ✅ offers aanenkil ALL products fetch cheyyum
+  // ✅ offers + trynew => all products fetch cheyyum
   const { data: products, isLoading: productsLoading } = useProducts(
-    slug === "offers" ? undefined : slug
+    slug === "offers" || slug === "trynew" ? undefined : slug
   );
 
   const { data: categories } = useCategories();
 
-  // ✅ virtual offers category
+  // ✅ Offers filter
+  const offerProducts = products?.filter(
+    (product) => product.is_offer === true
+  );
+
+  // ✅ Try New filter
+  const tryNewProducts = products?.filter(
+    (product) => product.is_try_new === true
+  );
+
+  // ✅ Final Display Products
   const displayProducts =
     slug === "offers"
-      ? products?.filter((product) => product.is_offer === true)
+      ? offerProducts
+      : slug === "trynew"
+      ? tryNewProducts
       : products;
 
   const currentCategory = categories?.find((c) => c.slug === slug);
@@ -34,7 +46,7 @@ const CategoryPage = () => {
       <Header />
 
       <main className="flex-1 bg-background">
-        {/* Category Header */}
+        {/* Header */}
         <section
           className="relative text-primary-foreground py-12"
           style={{
@@ -44,18 +56,20 @@ const CategoryPage = () => {
             opacity: "0.90",
           }}
         >
-          <div className="absolute inset-0"></div>
-
           <div className="relative container mx-auto px-4">
             <h1 className="font-display text-3xl text-[#5B3A29] md:text-4xl font-bold mb-2 leading-tight">
               {slug === "offers"
                 ? "Special Offers"
+                : slug === "trynew"
+                ? "TRY NEW"
                 : currentCategory?.name || "Products"}
             </h1>
 
             <p className="text-[#5B3A32] leading-tight">
               {slug === "offers"
                 ? "Best discounted products from all categories"
+                : slug === "trynew"
+                ? "Discover our latest collection"
                 : `Explore our premium selection of ${
                     currentCategory?.name?.toLowerCase() || "products"
                   }`}
@@ -63,7 +77,7 @@ const CategoryPage = () => {
           </div>
         </section>
 
-        {/* Products Grid */}
+        {/* Products */}
         <section className="py-12">
           <div className="container mx-auto px-4">
             {productsLoading ? (
@@ -87,6 +101,8 @@ const CategoryPage = () => {
                 <p className="text-[#5B3A29] text-lg">
                   {slug === "offers"
                     ? "No offer products available."
+                    : slug === "trynew"
+                    ? "No Try New products available."
                     : "No products found in this category."}
                 </p>
               </div>

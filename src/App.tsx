@@ -10,7 +10,6 @@ import SearchPage from "./pages/SearchPage";
 import AdminPage from "./pages/AdminPage";
 import NotFound from "./pages/NotFound";
 import AboutUs from "./pages/AboutUs";
-
 // 1. ScrollToTop import cheyyuka
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -33,6 +32,7 @@ const App = () => (
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="*" element={<NotFound />} />
+            
           </Routes>
         </BrowserRouter>
       </CartProvider>

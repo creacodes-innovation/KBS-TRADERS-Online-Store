@@ -22,7 +22,7 @@ export interface Product {
   price_pac: number | null;
   is_auto_price?: boolean;
   is_sold_out: boolean;
-  is_featured: boolean;
+  is_try_new?: boolean;
   is_offer?: boolean;
   created_at: string;
   updated_at: string;

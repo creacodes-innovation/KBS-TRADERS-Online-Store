@@ -130,7 +130,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <div className="absolute top-3 right-3 z-10">
             <span className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-md">
               OFFER
-            </span>
+            </span>                             
           </div>
         )}
       </div>

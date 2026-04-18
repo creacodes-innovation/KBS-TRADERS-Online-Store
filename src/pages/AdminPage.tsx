@@ -37,7 +37,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useCategories, useProducts } from "@/hooks/useProducts";
 import { toast } from "sonner";
 import { Product } from "@/types/store";
-import navbarBg from '@/assets/navbar-bg.png';
+import navbarBg from "@/assets/navbar-bg.png";
 
 const ADMIN_PASSWORD = "kbs2024";
 
@@ -91,7 +91,7 @@ const AdminPage = () => {
     price_nos: "",
     price_pac: "",
     is_sold_out: false,
-    is_featured: false,
+    is_try_new: false,
     is_offer: false,
   });
 
@@ -171,7 +171,7 @@ const AdminPage = () => {
       price_nos: "",
       price_pac: "",
       is_sold_out: false,
-      is_featured: false,
+      is_try_new: false,
       is_offer: false,
     });
     setEditingProduct(null);
@@ -192,7 +192,7 @@ const AdminPage = () => {
       price_nos: product.price_nos?.toString() || "",
       price_pac: product.price_pac?.toString() || "",
       is_sold_out: product.is_sold_out || false,
-      is_featured: product.is_featured || false,
+      is_try_new: product.is_try_new || false,
       is_offer: product.is_offer || false,
     });
 
@@ -214,7 +214,7 @@ const AdminPage = () => {
       price_nos: formData.price_nos ? parseFloat(formData.price_nos) : null,
       price_pac: formData.price_pac ? parseFloat(formData.price_pac) : null,
       is_sold_out: formData.is_sold_out,
-      is_featured: formData.is_featured,
+      is_try_new: formData.is_try_new,
       is_offer: formData.is_offer,
     };
 
@@ -271,12 +271,13 @@ const AdminPage = () => {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center  p-4"
-      style={{
-        backgroundImage: `url(${navbarBg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
+      <div
+        className="min-h-screen flex items-center justify-center  p-4"
+        style={{
+          backgroundImage: `url(${navbarBg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
       >
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
@@ -323,15 +324,18 @@ const AdminPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className=" text-primary-foreground py-4 sticky top-0 z-40"
-       style={{
-        backgroundImage: `url(${navbarBg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
+      <header
+        className=" text-primary-foreground py-4 sticky top-0 z-40"
+        style={{
+          backgroundImage: `url(${navbarBg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
       >
         <div className="container mx-auto px-4 flex items-center justify-between">
-          <h1 className="font-display text-[#5B3A29] text-xl font-bold">KBS Traders Admin</h1>
+          <h1 className="font-display text-[#5B3A29] text-xl font-bold">
+            KBS Traders Admin
+          </h1>
           <Button
             variant="ghost"
             onClick={handleLogout}
@@ -369,7 +373,9 @@ const AdminPage = () => {
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all" className="text-[#5B3A29]">All Categories</SelectItem>
+                <SelectItem value="all" className="text-[#5B3A29]">
+                  All Categories
+                </SelectItem>
                 {categories?.map((cat) => (
                   <SelectItem key={cat.id} value={cat.id}>
                     {cat.name}
@@ -620,7 +626,7 @@ const AdminPage = () => {
                       />
                       <Label htmlFor="is_sold_out">Sold Out</Label>
                     </div>
-                    <div className="flex items-center gap-2">
+                    {/* <div className="flex items-center gap-2">
                       <Switch
                         id="is_featured"
                         checked={formData.is_featured}
@@ -629,7 +635,7 @@ const AdminPage = () => {
                         }
                       />
                       <Label htmlFor="is_featured">Featured</Label>
-                    </div>
+                    </div> */}
                     <div className="flex items-center gap-2">
                       <Switch
                         checked={formData.is_offer}
@@ -638,6 +644,15 @@ const AdminPage = () => {
                         }
                       />
                       <Label>Offer</Label>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Switch
+                        checked={formData.is_try_new}
+                        onCheckedChange={(checked) =>
+                          setFormData({ ...formData, is_try_new: checked })
+                        }
+                      />
+                      <Label>Try New</Label>
                     </div>
                   </div>
                   <Button
@@ -723,10 +738,11 @@ const AdminPage = () => {
                     <td className="p-4 text-center">
                       <button
                         onClick={() => toggleSoldOut(product)}
-                        className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${product.is_sold_out
+                        className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+                          product.is_sold_out
                             ? "bg-destructive/10 text-destructive"
                             : "bg-emerald/10 text-emerald"
-                          }`}
+                        }`}
                       >
                         {product.is_sold_out ? "Sold Out" : "In Stock"}
                       </button>

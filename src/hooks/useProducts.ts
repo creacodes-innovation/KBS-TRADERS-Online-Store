@@ -18,7 +18,7 @@ export const useCategories = () => {
 };
 
 export const useProducts = (categorySlug?: string) => {
-  return useQuery({
+  return useQuery<Product[]>({
     queryKey: ["products", categorySlug],
     queryFn: async () => {
       let query = supabase
@@ -29,8 +29,12 @@ export const useProducts = (categorySlug?: string) => {
         `)
         .order("created_at", { ascending: false });
 
-      // ✅ only apply category filter if normal category
-      if (categorySlug && categorySlug !== "offers") {
+      // ✅ Normal Category Filter
+      if (
+        categorySlug &&
+        categorySlug !== "offers" &&
+        categorySlug !== "trynew"
+      ) {
         const { data: category } = await supabase
           .from("categories")
           .select("id")
@@ -43,22 +47,32 @@ export const useProducts = (categorySlug?: string) => {
       }
 
       const { data, error } = await query;
+
       if (error) throw error;
 
-      // ✅ special virtual offers category
+      const products = (data || []) as unknown as Product[];
+
+      // ✅ Virtual Offers Category
       if (categorySlug === "offers") {
-        return (data as Product[]).filter(
+        return products.filter(
           (product) => product.is_offer === true
         );
       }
 
-      return data as Product[];
+      // ✅ Virtual Try New Category
+      if (categorySlug === "trynew") {
+        return products.filter(
+          (product) => product.is_try_new === true
+        );
+      }
+
+      return products;
     },
   });
 };
 
 export const useProduct = (id: string) => {
-  return useQuery({
+  return useQuery<Product>({
     queryKey: ["product", id],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -71,14 +85,15 @@ export const useProduct = (id: string) => {
         .single();
 
       if (error) throw error;
-      return data as Product;
+
+      return data as unknown as Product;
     },
     enabled: !!id,
   });
 };
 
 export const useSearchProducts = (searchTerm: string) => {
-  return useQuery({
+  return useQuery<Product[]>({
     queryKey: ["products", "search", searchTerm],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -91,7 +106,8 @@ export const useSearchProducts = (searchTerm: string) => {
         .order("title", { ascending: true });
 
       if (error) throw error;
-      return data as Product[];
+
+      return (data || []) as unknown as Product[];
     },
     enabled: searchTerm.length >= 2,
   });
