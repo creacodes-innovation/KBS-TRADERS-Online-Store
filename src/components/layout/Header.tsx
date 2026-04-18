@@ -72,8 +72,8 @@ const Header = () => {
                 alt="KBS Traders - Since 1970"
                 className="h-10 md:h-14 w-auto"
               />
-              <h1 className="text-2xl md:text-3xl font-serif font-bold text-[#5B3A29]">
-                <span className="text-accent">KBS</span> TRADERS
+              <h1 className="text-2xl md:text-3xl font-serif font-bold text-[#c1a865]">
+                <span className="">K B S</span> TRADERS
               </h1>
 
             </Link>
@@ -87,7 +87,7 @@ const Header = () => {
                 placeholder="Search products..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 bg-[#F5E6D3]/80 backdrop-blur-sm border border-[#E8D2B8] text-[#5A3E2B] placeholder:text-[#8B6B55] focus-visible:ring-[#C89B5E]"
+                className="w-full pl-10 bg-[]/80 backdrop-blur-sm border border-[#E8D2B8] text-[#5A3E2B] placeholder:text-[#8B6B55] focus-visible:ring-[#C89B5E]"
               />
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#8B6B55]" />
             </form>
