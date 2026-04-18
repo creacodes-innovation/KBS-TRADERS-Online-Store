@@ -46,6 +46,19 @@ const AdminPage = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  const getPricingInfo = (product: any) => {
+    const prices = [
+      { label: "250g", value: product.price_250g },
+      { label: "500g", value: product.price_500g },
+      { label: "1kg", value: product.price_1kg },
+      { label: "Pcs", value: product.price_pcs },
+      { label: "Nos", value: product.price_nos },
+      { label: "Pac", value: product.price_pac },
+    ];
+
+    return prices.filter((item) => item.value && item.value > 0).slice(0, 3);
+  };
+
   const handle1KgPriceChange = (value: string) => {
     const kgPrice = Number(value);
 
@@ -714,25 +727,18 @@ const AdminPage = () => {
                     </td>
                     <td className="p-4 text-xs text-foreground hidden sm:table-cell">
                       <div className="flex flex-wrap gap-1">
-                        {product.price_250g && (
-                          <span className="bg-primary/10 px-1 rounded">
-                            250g: ₹{product.price_250g}
-                          </span>
-                        )}
-                        {product.price_pcs && (
-                          <span className="bg-gold/10 px-1 rounded">
-                            Pcs: ₹{product.price_pcs}
-                          </span>
-                        )}
-                        {product.price_pac && (
-                          <span className="bg-emerald/10 px-1 rounded">
-                            Pac: ₹{product.price_pac}
-                          </span>
-                        )}
-                        {!product.price_250g &&
-                          !product.price_pcs &&
-                          !product.price_pac &&
-                          "-"}
+    
+                          {getPricingInfo(product).length > 0
+                            ? getPricingInfo(product).map((item, index) => (
+                                <span
+                                  key={index}
+                                  className="bg-primary/10 px-1 rounded"
+                                >
+                                  {item.label}: ₹{item.value}
+                                </span>
+                              ))
+                            : "-"}
+                        
                       </div>
                     </td>
                     <td className="p-4 text-center">
