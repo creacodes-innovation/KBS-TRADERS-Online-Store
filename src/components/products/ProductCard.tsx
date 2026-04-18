@@ -130,74 +130,86 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <div className="absolute top-3 right-3 z-10">
             <span className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-md">
               OFFER
-            </span>                             
+            </span>
           </div>
         )}
       </div>
       {/* Content */}
-      <div className="p-4">
-        <h3 className="text-[15px] font-normal text-foreground mt-1 mb-3 line-clamp-1 tracking-tight capitalize">
-          {product.title.toLowerCase()}
-        </h3>
+      <div className="p-4 flex flex-col flex-1">
 
-        {/* Weight Buttons */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          {availableWeights.map((opt) => (
-            <button
-              key={opt.value}
-              onClick={() => setSelectedWeight(opt.value)}
-              disabled={product.is_sold_out}
-              className={cn(
-                "px-3 py-1.5 text-xs font-medium rounded-full border transition-all",
-                selectedWeight === opt.value
-                  ? "bg-[#E6D3B3] text-[#5B3A29] border-[#5B3A29]"
-                  : "bg-background text-[#5B3A29] border-border hover:border-[#5B3A29]",
-                product.is_sold_out && "opacity-50 cursor-not-allowed",
-              )}
-            >
-              {opt.label}
-            </button>
-          ))}
+        {/* 🔼 TOP CONTENT */}
+        <div>
+          <h3 className="text-[15px] font-normal text-foreground mt-1 mb-3 line-clamp-2 min-h-[40px] tracking-tight capitalize">
+            {product.title.toLowerCase()}
+          </h3>
+
+          {/* Weight Buttons */}
+          <div className="flex flex-wrap gap-2 mb-3">
+            {availableWeights.map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => setSelectedWeight(opt.value)}
+                disabled={product.is_sold_out}
+                className={cn(
+                  "px-3 py-1.5 text-xs font-medium rounded-full border transition-all",
+                  selectedWeight === opt.value
+                    ? "bg-[#E6D3B3] text-[#5B3A29] border-[#5B3A29]"
+                    : "bg-background text-[#5B3A29] border-border hover:border-[#5B3A29]",
+                  product.is_sold_out && "opacity-50 cursor-not-allowed"
+                )}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Price + Add */}
-        <div className="flex items-center justify-between">
-          <div className="flex flex-col">
+        {/* 🔽 BOTTOM (ALWAYS SAME POSITION) */}
+        <div className="mt-auto flex items-center justify-between gap-2">
+
+          {/* PRICE */}
+          <div className="flex flex-col leading-tight">
             {mrpPrice && currentPrice && mrpPrice > currentPrice && (
-              <span className="text-xs text-[#5B3A29] line-through">
+              <span className="text-[10px] sm:text-xs text-[#5B3A29] line-through">
                 ₹{mrpPrice.toLocaleString("en-IN")}
               </span>
             )}
 
             {currentPrice && (
-              <span className="text-lg font-bold text-foreground">
+              <span className="text-sm sm:text-base font-bold text-foreground">
                 ₹{currentPrice.toLocaleString("en-IN")}
               </span>
             )}
           </div>
 
-       <Button
-  onClick={handleAddToCart}
-  disabled={product.is_sold_out || !currentPrice}
-  variant={justAdded ? "default" : "gold"}
-  size="sm"
-  className={cn(
-    "transition-all px-3 sm:px-4 md:px-5 flex items-center justify-center",
-    justAdded && "bg-[#5B3A29] text-white"
-  )}
->
-  {justAdded ? (
-    <>
-      <Check className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
-      <span className="text-xs sm:text-sm">Added</span>
-    </>
-  ) : (
-    <>
-      <ShoppingBag className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
-      <span className="text-xs sm:text-sm">Add</span>
-    </>
-  )}
-</Button>
+          {/* BUTTON */}
+          <Button
+            onClick={handleAddToCart}
+            disabled={product.is_sold_out || !currentPrice}
+            variant={justAdded ? "default" : "gold"}
+            size="sm"
+            className={cn(
+              "flex items-center justify-center gap-1",
+              "px-2 sm:px-3 md:px-4 py-2",
+              "text-xs sm:text-sm",
+              "shrink-0 rounded-lg",
+              "transition-all",
+              justAdded && "bg-[#5B3A29] text-white"
+            )}
+          >
+            {justAdded ? (
+              <>
+                <Check className="h-3 w-3 sm:h-4 sm:w-4" />
+                <span>Added</span>
+              </>
+            ) : (
+              <>
+                <ShoppingBag className="h-3 w-3 sm:h-4 sm:w-4" />
+                <span>Add</span>
+              </>
+            )}
+          </Button>
+
         </div>
       </div>
     </div>
