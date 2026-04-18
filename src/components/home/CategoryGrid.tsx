@@ -135,13 +135,12 @@ const CategoryGrid = () => {
                   to={`/category/${category.slug}`}
                   className="group flex flex-col items-center transition-all duration-300"
                 >
-                  <div className="relative w-35 h-30 md:w-36 md:h-36 flex items-center justify-center bg-gray-50 rounded-2xl overflow-hidden group-hover:shadow-lg transition-all border border-gray-100">
-                    <img
-                      src={category.image_url || '/placeholder.svg'}
-                      alt={category.name}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                  </div>
+                  <div className="aspect-square w-full overflow-hidden rounded-2xl">
+  <img
+    src={category.image_url}
+    className="w-full h-full object-cover object-center"
+  />
+</div>
                   <div className="mt-3 text-center">
                     <h3 className="text-xl md:text-sm font-bold text-gray-800 uppercase tracking-tight group-hover:text-[#5B3A29]">
                       {category.name}
