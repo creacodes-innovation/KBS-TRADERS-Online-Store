@@ -121,56 +121,21 @@ const Header = () => {
               )}
             </Button>
             {/* Mobile Menu Toggle */}
-            <Button
+            {/* <Button
               variant="ghost"
               size="icon"
               className="md:hidden text-[#5B3A29] hover:hover:bg-[#E8D2B8]"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </Button>
+            </Button> */}
           </div>
         </div>
 
-        {/* Mobile Search Bar */}
-        {isSearchOpen && (
-          <div className="md:hidden pb-4 animate-fade-in">
-            <form onSubmit={handleSearch}>
-              <Input
-                type="search"
-                placeholder="Search products..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-[#EADBC8] border border-[#8B6B4A] rounded-lg px-4 py-3
-                text-[#5B3A29] placeholder:text-[#8B6B4A]
-                          focus:outline-none focus:ring-2 focus:ring-[#8B6B4A]"
-                  autoFocus
-              />
-            </form>
-          </div>
-        )}
+       
 
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <nav className="md:hidden pb-4 animate-fade-in">
-            <div className="flex flex-col gap-2">
-              <Link
-                to="/"
-                className="px-4 py-2 text-[#5B3A29] hover:hover:bg-[#E8D2B8] rounded-md transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Home
-              </Link>
-              {/* <Link
-                to="/admin"
-                className="px-4 py-2 text-[#5B3A29] hover:hover:bg-[#E8D2B8] rounded-md transition-colors text-sm"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Admin
-              </Link> */}
-            </div>
-          </nav>
-        )}
+       
+       
       </div>
     </header>
   );
