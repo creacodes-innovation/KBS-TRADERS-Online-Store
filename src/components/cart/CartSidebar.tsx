@@ -28,7 +28,7 @@ const CartSidebar = () => {
     );
 
     // 2. Message format cheyyunnu
-    
+
 
     const message = `🛒 *New Order from KBS Traders*
 
@@ -46,7 +46,7 @@ Thank you for your order!`;
 
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/919946601888?text=${encodedMessage}`;
-    
+
     // 3. WhatsApp open cheyyunnu
     window.open(whatsappUrl, '_blank');
 
@@ -62,7 +62,7 @@ Thank you for your order!`;
       closeCart();
     }, 2000);
   };
- 
+
 
   const isFormValid = checkoutForm.name.trim() && checkoutForm.phone.trim() && checkoutForm.address.trim();
 
@@ -88,9 +88,9 @@ Thank you for your order!`;
               Your Cart {itemCount > 0 && `(${itemCount})`}
             </h2>
           </div>
-          <Button variant="ghost" size="icon" onClick={closeCart}>
+          {/* <Button variant="ghost" size="icon" onClick={closeCart}>
             <X className="h-5 w-5" />
-          </Button>
+          </Button> */}
         </div>
 
         <div className="flex-1 overflow-y-auto">
@@ -188,6 +188,14 @@ Thank you for your order!`;
             ) : (
               <Button className="w-full bg-gold hover:bg-gold/90 text-white" onClick={() => setShowCheckout(true)}>Proceed to Checkout</Button>
             )}
+            <Button
+              onClick={closeCart}
+              className="w-full bg-white border border-[#D4AF37] text-[#D4AF37] 
+             hover:bg-[#D4AF37] hover:text-white 
+             rounded-lg font-medium transition-all duration-300"
+            >
+              Back to Shopping
+            </Button>
           </div>
         )}
       </div>
