@@ -107,6 +107,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
     }
   };
 
+
+
   return (
     <div className="group bg-card rounded-lg overflow-hidden shadow-card hover:shadow-elevated transition-all duration-300">
       {/* Image */}
@@ -142,6 +144,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <h3 className="text-[15px] font-normal text-foreground mt-1 mb-3 line-clamp-2 min-h-[40px] tracking-tight capitalize">
             {product.title.toLowerCase()}
           </h3>
+          <p className="text-sm text-black line-clamp-2 mb-2 font-medium">
+            {product.description ?? "No description available"}
+          </p>
+
+
+
 
           {/* Weight Buttons */}
           <div className="flex flex-wrap gap-2 mb-3">
