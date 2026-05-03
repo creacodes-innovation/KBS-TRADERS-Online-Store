@@ -145,7 +145,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             {product.title.toLowerCase()}
           </h3>
           <p className="text-sm text-black line-clamp-2 mb-2 font-medium">
-            {product.description ?? "No description available"}
+            {product.description }
           </p>
 
 
