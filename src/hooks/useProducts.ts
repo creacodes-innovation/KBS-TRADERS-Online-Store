@@ -27,7 +27,7 @@ export const useProducts = (categorySlug?: string) => {
           *,
           category:categories(*)
         `)
-        .order("created_at", { ascending: false });
+       .order("display_order", { ascending: true })
 
       // ✅ Normal Category Filter
       if (

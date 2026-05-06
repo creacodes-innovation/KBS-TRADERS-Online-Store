@@ -38,6 +38,23 @@ import { useCategories, useProducts } from "@/hooks/useProducts";
 import { toast } from "sonner";
 import { Product } from "@/types/store";
 import navbarBg from "@/assets/navbar-bg.png";
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+  useSortable,
+  arrayMove,
+} from "@dnd-kit/sortable";
+
+import { CSS } from "@dnd-kit/utilities";
 
 const ADMIN_PASSWORD = "kbs2024";
 
@@ -90,6 +107,15 @@ const AdminPage = () => {
   const { data: categories } = useCategories();
   const { data: products, refetch: refetchProducts } = useProducts();
   const navigate = useNavigate();
+const sensors = useSensors(
+  useSensor(PointerSensor),
+  useSensor(TouchSensor, {
+    activationConstraint: {
+      delay: 150,
+      tolerance: 5,
+    },
+  }),
+);
   const [autoPricing, setAutoPricing] = useState(true);
   const [formData, setFormData] = useState({
     title: "",
@@ -219,6 +245,7 @@ const AdminPage = () => {
       description: formData.description || null,
       category_id: formData.category_id || null,
       image_url: formData.image_url || null,
+      display_order: products?.length || 0,
       mrp_price: formData.mrp_price ? parseFloat(formData.mrp_price) : null,
       price_250g: formData.price_250g ? parseFloat(formData.price_250g) : null,
       price_500g: formData.price_500g ? parseFloat(formData.price_500g) : null,
@@ -282,6 +309,141 @@ const AdminPage = () => {
     }
   };
 
+  const handleDragEnd = async (event: any) => {
+  const { active, over } = event;
+
+  if (!over || active.id === over.id || !filteredProducts)
+    return;
+
+  const oldIndex = filteredProducts.findIndex(
+    (item) => item.id === active.id,
+  );
+
+  const newIndex = filteredProducts.findIndex(
+    (item) => item.id === over.id,
+  );
+
+  const reorderedProducts = arrayMove(
+    filteredProducts,
+    oldIndex,
+    newIndex,
+  );
+
+  try {
+    for (let i = 0; i < reorderedProducts.length; i++) {
+      await supabase
+        .from("products")
+        .update({
+          display_order: i + 1,
+        })
+        .eq("id", reorderedProducts[i].id);
+    }
+
+    toast.success("Products reordered!");
+
+    refetchProducts();
+  } catch (error: any) {
+    toast.error(error.message);
+  }
+};
+
+const SortableRow = ({ product }: any) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+  } = useSortable({
+    id: product.id,
+  });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  return (
+    <tr
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+     className="hover:bg-muted/50 transition-colors cursor-grab touch-none"
+    >
+      <td className="p-4">
+        <div className="flex items-center gap-3">
+          <img
+            src={product.image_url || "/placeholder.svg"}
+            alt={product.title}
+            className="w-12 h-12 object-cover rounded-md"
+          />
+
+          <span className="font-medium text-foreground">
+            {product.title}
+          </span>
+        </div>
+      </td>
+
+      <td className="p-4 text-[#5B3A29] hidden md:table-cell">
+        {product.category?.name || "-"}
+      </td>
+
+      <td className="p-4 text-xs text-foreground hidden sm:table-cell">
+        <div className="flex flex-wrap gap-1">
+          {getPricingInfo(product).length > 0
+            ? getPricingInfo(product).map((item, index) => (
+                <span
+                  key={index}
+                  className="bg-primary/10 px-1 rounded"
+                >
+                  {item.label}: ₹{item.value}
+                </span>
+              ))
+            : "-"}
+        </div>
+      </td>
+
+      <td className="p-4 text-center">
+        <button
+          onClick={() => toggleSoldOut(product)}
+          className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+            product.is_sold_out
+              ? "bg-destructive/10 text-destructive"
+              : "bg-emerald/10 text-emerald"
+          }`}
+        >
+          {product.is_sold_out
+            ? "Sold Out"
+            : "In Stock"}
+        </button>
+      </td>
+
+      <td className="p-4">
+        <div className="flex items-center justify-end gap-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => openEditDialog(product)}
+            className="h-8 w-8"
+          >
+            <Edit2 className="h-4 w-4" />
+          </Button>
+
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => handleDelete(product.id)}
+            className="h-8 w-8 text-destructive hover:text-destructive"
+          >
+            <Trash2 className="h-4 w-4" />
+          </Button>
+        </div>
+      </td>
+    </tr>
+  );
+};
+
   if (!isAuthenticated) {
     return (
       <div
@@ -334,6 +496,7 @@ const AdminPage = () => {
       </div>
     );
   }
+
 
   return (
     <div className="min-h-screen bg-background">
@@ -704,77 +867,24 @@ const AdminPage = () => {
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-border">
+              <DndContext
+  sensors={sensors}
+  collisionDetection={closestCenter}
+  onDragEnd={handleDragEnd}
+>
+  <SortableContext
+    items={filteredProducts?.map((p) => p.id) || []}
+    strategy={verticalListSortingStrategy}
+  >
+    <tbody className="divide-y divide-border">
                 {filteredProducts?.map((product: any) => (
-                  <tr
-                    key={product.id}
-                    className="hover:bg-muted/50 transition-colors"
-                  >
-                    <td className="p-4">
-                      <div className="flex items-center gap-3">
-                        <img
-                          src={product.image_url || "/placeholder.svg"}
-                          alt={product.title}
-                          className="w-12 h-12 object-cover rounded-md"
-                        />
-                        <span className="font-medium text-foreground">
-                          {product.title}
-                        </span>
-                      </div>
-                    </td>
-                    <td className="p-4 text-[#5B3A29] hidden md:table-cell">
-                      {product.category?.name || "-"}
-                    </td>
-                    <td className="p-4 text-xs text-foreground hidden sm:table-cell">
-                      <div className="flex flex-wrap gap-1">
-    
-                          {getPricingInfo(product).length > 0
-                            ? getPricingInfo(product).map((item, index) => (
-                                <span
-                                  key={index}
-                                  className="bg-primary/10 px-1 rounded"
-                                >
-                                  {item.label}: ₹{item.value}
-                                </span>
-                              ))
-                            : "-"}
-                        
-                      </div>
-                    </td>
-                    <td className="p-4 text-center">
-                      <button
-                        onClick={() => toggleSoldOut(product)}
-                        className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
-                          product.is_sold_out
-                            ? "bg-destructive/10 text-destructive"
-                            : "bg-emerald/10 text-emerald"
-                        }`}
-                      >
-                        {product.is_sold_out ? "Sold Out" : "In Stock"}
-                      </button>
-                    </td>
-                    <td className="p-4">
-                      <div className="flex items-center justify-end gap-2">
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => openEditDialog(product)}
-                          className="h-8 w-8"
-                        >
-                          <Edit2 className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => handleDelete(product.id)}
-                          className="h-8 w-8 text-destructive hover:text-destructive"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+  <SortableRow
+    key={product.id}
+    product={product}
+  />
+))}
+               
+                
                 {filteredProducts?.length === 0 && (
                   <tr>
                     <td
@@ -786,6 +896,8 @@ const AdminPage = () => {
                   </tr>
                 )}
               </tbody>
+                </SortableContext>
+</DndContext>
             </table>
           </div>
         </div>
