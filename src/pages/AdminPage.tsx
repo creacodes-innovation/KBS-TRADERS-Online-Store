@@ -108,11 +108,16 @@ const AdminPage = () => {
   const { data: products, refetch: refetchProducts } = useProducts();
   const navigate = useNavigate();
 const sensors = useSensors(
-  useSensor(PointerSensor),
+  useSensor(PointerSensor, {
+    activationConstraint: {
+      distance: 5,
+    },
+  }),
+
   useSensor(TouchSensor, {
     activationConstraint: {
-      delay: 150,
-      tolerance: 5,
+      delay: 200,
+      tolerance: 8,
     },
   }),
 );
@@ -365,12 +370,15 @@ const SortableRow = ({ product }: any) => {
 
   return (
     <tr
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...listeners}
-     className="hover:bg-muted/50 transition-colors cursor-grab touch-none"
-    >
+  ref={setNodeRef}
+  style={{
+    ...style,
+    touchAction: "none",
+  }}
+  {...attributes}
+  {...listeners}
+  className="hover:bg-muted/50 transition-colors cursor-grab"
+>
       <td className="p-4">
         <div className="flex items-center gap-3">
           <img
