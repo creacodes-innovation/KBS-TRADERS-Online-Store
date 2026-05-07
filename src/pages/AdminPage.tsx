@@ -369,15 +369,13 @@ const SortableRow = ({ product }: any) => {
   };
 
   return (
-    <tr
+   <tr
   ref={setNodeRef}
   style={{
     ...style,
     touchAction: "none",
   }}
-  {...attributes}
-  {...listeners}
-  className="hover:bg-muted/50 transition-colors cursor-grab"
+  className="hover:bg-muted/50 transition-colors"
 >
       <td className="p-4">
         <div className="flex items-center gap-3">
@@ -428,25 +426,35 @@ const SortableRow = ({ product }: any) => {
       </td>
 
       <td className="p-4">
-        <div className="flex items-center justify-end gap-2">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => openEditDialog(product)}
-            className="h-8 w-8"
-          >
-            <Edit2 className="h-4 w-4" />
-          </Button>
+       <div className="flex items-center justify-end gap-2">
 
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => handleDelete(product.id)}
-            className="h-8 w-8 text-destructive hover:text-destructive"
-          >
-            <Trash2 className="h-4 w-4" />
-          </Button>
-        </div>
+  <button
+    {...attributes}
+    {...listeners}
+    className="cursor-grab active:cursor-grabbing touch-none"
+  >
+    ☰
+  </button>
+
+  <Button
+    variant="ghost"
+    size="icon"
+    onClick={() => openEditDialog(product)}
+    className="h-8 w-8"
+  >
+    <Edit2 className="h-4 w-4" />
+  </Button>
+
+  <Button
+    variant="ghost"
+    size="icon"
+    onClick={() => handleDelete(product.id)}
+    className="h-8 w-8 text-destructive hover:text-destructive"
+  >
+    <Trash2 className="h-4 w-4" />
+  </Button>
+
+</div>
       </td>
     </tr>
   );
