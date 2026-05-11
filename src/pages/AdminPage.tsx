@@ -335,14 +335,16 @@ const sensors = useSensors(
   );
 
   try {
-    for (let i = 0; i < reorderedProducts.length; i++) {
-      await supabase
-        .from("products")
-        .update({
-          display_order: i + 1,
-        })
-        .eq("id", reorderedProducts[i].id);
-    }
+    const updates = reorderedProducts.map((product, index) =>
+  supabase
+    .from("products")
+    .update({
+      display_order: index + 1,
+    })
+    .eq("id", product.id)
+);
+
+await Promise.all(updates);
 
     toast.success("Products reordered!");
 
@@ -369,12 +371,9 @@ const SortableRow = ({ product }: any) => {
   };
 
   return (
-   <tr
+  <tr
   ref={setNodeRef}
-  style={{
-    ...style,
-    touchAction: "none",
-  }}
+  style={style}
   className="hover:bg-muted/50 transition-colors"
 >
       <td className="p-4">
