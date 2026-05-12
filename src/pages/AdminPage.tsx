@@ -245,23 +245,48 @@ const sensors = useSensors(
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const productData = {
-      title: formData.title,
-      description: formData.description || null,
-      category_id: formData.category_id || null,
-      image_url: formData.image_url || null,
-      display_order: products?.length || 0,
-      mrp_price: formData.mrp_price ? parseFloat(formData.mrp_price) : null,
-      price_250g: formData.price_250g ? parseFloat(formData.price_250g) : null,
-      price_500g: formData.price_500g ? parseFloat(formData.price_500g) : null,
-      price_1kg: formData.price_1kg ? parseFloat(formData.price_1kg) : null,
-      price_pcs: formData.price_pcs ? parseFloat(formData.price_pcs) : null,
-      price_nos: formData.price_nos ? parseFloat(formData.price_nos) : null,
-      price_pac: formData.price_pac ? parseFloat(formData.price_pac) : null,
-      is_sold_out: formData.is_sold_out,
-      is_try_new: formData.is_try_new,
-      is_offer: formData.is_offer,
-    };
+   const productData = {
+  title: formData.title,
+  description: formData.description || null,
+  category_id: formData.category_id || null,
+  image_url: formData.image_url || null,
+
+  display_order: editingProduct
+    ? editingProduct.display_order
+    : products?.length || 0,
+
+  mrp_price: formData.mrp_price
+    ? parseFloat(formData.mrp_price)
+    : null,
+
+  price_250g: formData.price_250g
+    ? parseFloat(formData.price_250g)
+    : null,
+
+  price_500g: formData.price_500g
+    ? parseFloat(formData.price_500g)
+    : null,
+
+  price_1kg: formData.price_1kg
+    ? parseFloat(formData.price_1kg)
+    : null,
+
+  price_pcs: formData.price_pcs
+    ? parseFloat(formData.price_pcs)
+    : null,
+
+  price_nos: formData.price_nos
+    ? parseFloat(formData.price_nos)
+    : null,
+
+  price_pac: formData.price_pac
+    ? parseFloat(formData.price_pac)
+    : null,
+
+  is_sold_out: formData.is_sold_out,
+  is_try_new: formData.is_try_new,
+  is_offer: formData.is_offer,
+};
 
     try {
       if (editingProduct) {
@@ -365,16 +390,22 @@ const SortableRow = ({ product }: any) => {
     id: product.id,
   });
 
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-  };
+ const style = {
+  transform: transform
+    ? `translate3d(0, ${transform.y}px, 0)`
+    : undefined,
 
+  transition: transition || "transform 150ms ease",
+
+  position: "relative" as const,
+
+  zIndex: transform ? 999 : "auto",
+};
   return (
   <tr
   ref={setNodeRef}
   style={style}
-  className="hover:bg-muted/50 transition-colors"
+ className="hover:bg-muted/50 transition-colors bg-background"
 >
       <td className="p-4">
         <div className="flex items-center gap-3">
