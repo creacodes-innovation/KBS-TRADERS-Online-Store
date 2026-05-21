@@ -125,7 +125,7 @@ const sensors = useSensors(
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    category_id: "",
+    category_ids: [],
     image_url: "",
     mrp_price: "",
     price_250g: "",
@@ -140,13 +140,16 @@ const sensors = useSensors(
   });
 
   const filteredProducts = products?.filter((product) => {
-    const matchesSearch = product.title
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase());
-    const matchesCategory =
-      selectedCategory === "all" || product.category_id === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+  const matchesSearch = product.title
+    .toLowerCase()
+    .includes(searchQuery.toLowerCase());
+
+  const matchesCategory =
+    selectedCategory === "all" ||
+    product.category_ids?.includes(selectedCategory);
+
+  return matchesSearch && matchesCategory;
+});
 
   useEffect(() => {
     const saved = sessionStorage.getItem("kbs_admin");
@@ -205,7 +208,7 @@ const sensors = useSensors(
     setFormData({
       title: "",
       description: "",
-      category_id: "",
+      category_ids: [],
       image_url: "",
       mrp_price: "",
       price_250g: "",
@@ -226,7 +229,7 @@ const sensors = useSensors(
     setFormData({
       title: product.title || "",
       description: product.description || "",
-      category_id: product.category_id || "",
+     category_ids: product.category_ids || [],
       image_url: product.image_url || "",
       mrp_price: product.mrp_price?.toString() || "",
       price_250g: product.price_250g?.toString() || "",
@@ -248,7 +251,7 @@ const sensors = useSensors(
    const productData = {
   title: formData.title,
   description: formData.description || null,
-  category_id: formData.category_id || null,
+ category_ids: formData.category_ids,
   image_url: formData.image_url || null,
 
   display_order: editingProduct
@@ -421,9 +424,14 @@ const SortableRow = ({ product }: any) => {
         </div>
       </td>
 
-      <td className="p-4 text-[#5B3A29] hidden md:table-cell">
-        {product.category?.name || "-"}
-      </td>
+     <td className="p-4 text-[#5B3A29] hidden md:table-cell">
+  {categories
+    ?.filter((cat) =>
+      product.category_ids?.includes(cat.id)
+    )
+    .map((cat) => cat.name)
+    .join(", ") || "-"}
+</td>
 
       <td className="p-4 text-xs text-foreground hidden sm:table-cell">
         <div className="flex flex-wrap gap-1">
@@ -653,26 +661,44 @@ const SortableRow = ({ product }: any) => {
                       }
                     />
                   </div>
-                  <div>
-                    <Label htmlFor="category">Category</Label>
-                    <Select
-                      value={formData.category_id}
-                      onValueChange={(value) =>
-                        setFormData({ ...formData, category_id: value })
-                      }
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select category" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {categories?.map((cat) => (
-                          <SelectItem key={cat.id} value={cat.id}>
-                            {cat.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
+                 <div className="space-y-2">
+  <Label>Categories</Label>
+
+  <div className="border rounded-md p-3 max-h-52 overflow-y-auto space-y-2">
+    {categories?.map((cat) => (
+      <label
+        key={cat.id}
+        className="flex items-center gap-2 cursor-pointer"
+      >
+        <input
+          type="checkbox"
+          checked={formData.category_ids.includes(cat.id)}
+          onChange={(e) => {
+            if (e.target.checked) {
+              setFormData({
+                ...formData,
+                category_ids: [
+                  ...formData.category_ids,
+                  cat.id,
+                ],
+              });
+            } else {
+              setFormData({
+                ...formData,
+                category_ids:
+                  formData.category_ids.filter(
+                    (id) => id !== cat.id,
+                  ),
+              });
+            }
+          }}
+        />
+
+        <span>{cat.name}</span>
+      </label>
+    ))}
+  </div>
+</div>
 
                   <div className="space-y-2">
                     <Label htmlFor="image">Product Image</Label>
@@ -876,6 +902,7 @@ const SortableRow = ({ product }: any) => {
                       />
                       <Label>Try New</Label>
                     </div>
+                   
                   </div>
                   <Button
                     type="submit"

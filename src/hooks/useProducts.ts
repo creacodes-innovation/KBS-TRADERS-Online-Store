@@ -42,7 +42,7 @@ export const useProducts = (categorySlug?: string) => {
           .single();
 
         if (category) {
-          query = query.eq("category_id", category.id);
+         query = query.contains("category_ids", [category.id]);
         }
       }
 

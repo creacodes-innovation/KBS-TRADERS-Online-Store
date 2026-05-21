@@ -132,24 +132,24 @@ const Header = () => {
           </div>
         </div>
 
-       
 
-       {/* Mobile Search Bar */}
-{isSearchOpen && (
-  <div className="md:hidden pb-3">
-    <form onSubmit={handleSearch} className="relative">
-      <Input
-        type="search"
-        placeholder="Search products..."
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        className="w-full pl-10 bg-white border border-[#E8D2B8] text-[#5A3E2B]"
-      />
-      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#8B6B55]" />
-    </form>
-  </div>
-)}
-       
+
+        {/* Mobile Search Bar */}
+        {isSearchOpen && (
+          <div className="md:hidden pb-3">
+            <form onSubmit={handleSearch} className="relative">
+              <Input
+                type="search"
+                placeholder="Search products..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 bg-white border border-[#E8D2B8] text-[#5A3E2B]"
+              />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#8B6B55]" />
+            </form>
+          </div>
+        )}
+
       </div>
     </header>
   );
