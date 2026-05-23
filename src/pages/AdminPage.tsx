@@ -68,9 +68,10 @@ const AdminPage = () => {
       { label: "250g", value: product.price_250g },
       { label: "500g", value: product.price_500g },
       { label: "1kg", value: product.price_1kg },
-      { label: "Pcs", value: product.price_pcs },
-      { label: "Nos", value: product.price_nos },
-      { label: "Pac", value: product.price_pac },
+       { label: "RS", value: product.price_rs },
+      // { label: "Pcs", value: product.price_pcs },
+      // { label: "Nos", value: product.price_nos },
+      // { label: "Pac", value: product.price_pac },
     ];
 
     return prices.filter((item) => item.value && item.value > 0).slice(0, 3);
@@ -107,20 +108,20 @@ const AdminPage = () => {
   const { data: categories } = useCategories();
   const { data: products, refetch: refetchProducts } = useProducts();
   const navigate = useNavigate();
-const sensors = useSensors(
-  useSensor(PointerSensor, {
-    activationConstraint: {
-      distance: 5,
-    },
-  }),
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5,
+      },
+    }),
 
-  useSensor(TouchSensor, {
-    activationConstraint: {
-      delay: 200,
-      tolerance: 8,
-    },
-  }),
-);
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 200,
+        tolerance: 8,
+      },
+    }),
+  );
   const [autoPricing, setAutoPricing] = useState(true);
   const [formData, setFormData] = useState({
     title: "",
@@ -131,25 +132,27 @@ const sensors = useSensors(
     price_250g: "",
     price_500g: "",
     price_1kg: "",
-    price_pcs: "",
-    price_nos: "",
-    price_pac: "",
+    price_rs: "",
+    // price_pcs: "",
+    // price_nos: "",
+    // price_pac: "",
+    
     is_sold_out: false,
     is_try_new: false,
     is_offer: false,
   });
 
   const filteredProducts = products?.filter((product) => {
-  const matchesSearch = product.title
-    .toLowerCase()
-    .includes(searchQuery.toLowerCase());
+    const matchesSearch = product.title
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
 
-  const matchesCategory =
-    selectedCategory === "all" ||
-    product.category_ids?.includes(selectedCategory);
+    const matchesCategory =
+      selectedCategory === "all" ||
+      product.category_ids?.includes(selectedCategory);
 
-  return matchesSearch && matchesCategory;
-});
+    return matchesSearch && matchesCategory;
+  });
 
   useEffect(() => {
     const saved = sessionStorage.getItem("kbs_admin");
@@ -214,9 +217,10 @@ const sensors = useSensors(
       price_250g: "",
       price_500g: "",
       price_1kg: "",
-      price_pcs: "",
-      price_nos: "",
-      price_pac: "",
+      price_rs: "",
+      // price_pcs: "",
+      // price_nos: "",
+      // price_pac: "",
       is_sold_out: false,
       is_try_new: false,
       is_offer: false,
@@ -229,15 +233,16 @@ const sensors = useSensors(
     setFormData({
       title: product.title || "",
       description: product.description || "",
-     category_ids: product.category_ids || [],
+      category_ids: product.category_ids || [],
       image_url: product.image_url || "",
       mrp_price: product.mrp_price?.toString() || "",
       price_250g: product.price_250g?.toString() || "",
       price_500g: product.price_500g?.toString() || "",
       price_1kg: product.price_1kg?.toString() || "",
-      price_pcs: product.price_pcs?.toString() || "",
-      price_nos: product.price_nos?.toString() || "",
-      price_pac: product.price_pac?.toString() || "",
+      price_rs: product.price_rs?.toString() || "",
+      // price_pcs: product.price_pcs?.toString() || "",
+      // price_nos: product.price_nos?.toString() || "",
+      // price_pac: product.price_pac?.toString() || "",
       is_sold_out: product.is_sold_out || false,
       is_try_new: product.is_try_new || false,
       is_offer: product.is_offer || false,
@@ -248,48 +253,51 @@ const sensors = useSensors(
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-   const productData = {
-  title: formData.title,
-  description: formData.description || null,
- category_ids: formData.category_ids,
-  image_url: formData.image_url || null,
+    const productData = {
+      title: formData.title,
+      description: formData.description || null,
+      category_ids: formData.category_ids,
+      image_url: formData.image_url || null,
 
-  display_order: editingProduct
-    ? editingProduct.display_order
-    : products?.length || 0,
+      display_order: editingProduct
+        ? editingProduct.display_order
+        : products?.length || 0,
 
-  mrp_price: formData.mrp_price
-    ? parseFloat(formData.mrp_price)
-    : null,
+      mrp_price: formData.mrp_price
+        ? parseFloat(formData.mrp_price)
+        : null,
 
-  price_250g: formData.price_250g
-    ? parseFloat(formData.price_250g)
-    : null,
+      price_250g: formData.price_250g
+        ? parseFloat(formData.price_250g)
+        : null,
 
-  price_500g: formData.price_500g
-    ? parseFloat(formData.price_500g)
-    : null,
+      price_500g: formData.price_500g
+        ? parseFloat(formData.price_500g)
+        : null,
 
-  price_1kg: formData.price_1kg
-    ? parseFloat(formData.price_1kg)
-    : null,
+      price_1kg: formData.price_1kg
+        ? parseFloat(formData.price_1kg)
+        : null,
 
-  price_pcs: formData.price_pcs
-    ? parseFloat(formData.price_pcs)
-    : null,
+        price_rs: formData.price_rs
+  ? parseFloat(formData.price_rs)
+  : null,
+      // price_pcs: formData.price_pcs
+      //   ? parseFloat(formData.price_pcs)
+      //   : null,
 
-  price_nos: formData.price_nos
-    ? parseFloat(formData.price_nos)
-    : null,
+      // price_nos: formData.price_nos
+      //   ? parseFloat(formData.price_nos)
+      //   : null,
 
-  price_pac: formData.price_pac
-    ? parseFloat(formData.price_pac)
-    : null,
+      // price_pac: formData.price_pac
+      //   ? parseFloat(formData.price_pac)
+      //   : null,
 
-  is_sold_out: formData.is_sold_out,
-  is_try_new: formData.is_try_new,
-  is_offer: formData.is_offer,
-};
+      is_sold_out: formData.is_sold_out,
+      is_try_new: formData.is_try_new,
+      is_offer: formData.is_offer,
+    };
 
     try {
       if (editingProduct) {
@@ -343,100 +351,100 @@ const sensors = useSensors(
   };
 
   const handleDragEnd = async (event: any) => {
-  const { active, over } = event;
+    const { active, over } = event;
 
-  if (!over || active.id === over.id || !filteredProducts)
-    return;
+    if (!over || active.id === over.id || !filteredProducts)
+      return;
 
-  const oldIndex = filteredProducts.findIndex(
-    (item) => item.id === active.id,
-  );
+    const oldIndex = filteredProducts.findIndex(
+      (item) => item.id === active.id,
+    );
 
-  const newIndex = filteredProducts.findIndex(
-    (item) => item.id === over.id,
-  );
+    const newIndex = filteredProducts.findIndex(
+      (item) => item.id === over.id,
+    );
 
-  const reorderedProducts = arrayMove(
-    filteredProducts,
-    oldIndex,
-    newIndex,
-  );
+    const reorderedProducts = arrayMove(
+      filteredProducts,
+      oldIndex,
+      newIndex,
+    );
 
-  try {
-    const updates = reorderedProducts.map((product, index) =>
-  supabase
-    .from("products")
-    .update({
-      display_order: index + 1,
-    })
-    .eq("id", product.id)
-);
+    try {
+      const updates = reorderedProducts.map((product, index) =>
+        supabase
+          .from("products")
+          .update({
+            display_order: index + 1,
+          })
+          .eq("id", product.id)
+      );
 
-await Promise.all(updates);
+      await Promise.all(updates);
 
-    toast.success("Products reordered!");
+      toast.success("Products reordered!");
 
-    refetchProducts();
-  } catch (error: any) {
-    toast.error(error.message);
-  }
-};
+      refetchProducts();
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  };
 
-const SortableRow = ({ product }: any) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-  } = useSortable({
-    id: product.id,
-  });
+  const SortableRow = ({ product }: any) => {
+    const {
+      attributes,
+      listeners,
+      setNodeRef,
+      transform,
+      transition,
+    } = useSortable({
+      id: product.id,
+    });
 
- const style = {
-  transform: transform
-    ? `translate3d(0, ${transform.y}px, 0)`
-    : undefined,
+    const style = {
+      transform: transform
+        ? `translate3d(0, ${transform.y}px, 0)`
+        : undefined,
 
-  transition: transition || "transform 150ms ease",
+      transition: transition || "transform 150ms ease",
 
-  position: "relative" as const,
+      position: "relative" as const,
 
-  zIndex: transform ? 999 : "auto",
-};
-  return (
-  <tr
-  ref={setNodeRef}
-  style={style}
- className="hover:bg-muted/50 transition-colors bg-background"
->
-      <td className="p-4">
-        <div className="flex items-center gap-3">
-          <img
-            src={product.image_url || "/placeholder.svg"}
-            alt={product.title}
-            className="w-12 h-12 object-cover rounded-md"
-          />
+      zIndex: transform ? 999 : "auto",
+    };
+    return (
+      <tr
+        ref={setNodeRef}
+        style={style}
+        className="hover:bg-muted/50 transition-colors bg-background"
+      >
+        <td className="p-4">
+          <div className="flex items-center gap-3">
+            <img
+              src={product.image_url || "/placeholder.svg"}
+              alt={product.title}
+              className="w-12 h-12 object-cover rounded-md"
+            />
 
-          <span className="font-medium text-foreground">
-            {product.title}
-          </span>
-        </div>
-      </td>
+            <span className="font-medium text-foreground">
+              {product.title}
+            </span>
+          </div>
+        </td>
 
-     <td className="p-4 text-[#5B3A29] hidden md:table-cell">
-  {categories
-    ?.filter((cat) =>
-      product.category_ids?.includes(cat.id)
-    )
-    .map((cat) => cat.name)
-    .join(", ") || "-"}
-</td>
+        <td className="p-4 text-[#5B3A29] hidden md:table-cell">
+          {categories
+            ?.filter((cat) =>
+              product.category_ids?.includes(cat.id)
+            )
+            .map((cat) => cat.name)
+            .join(", ") || "-"}
+        </td>
 
-      <td className="p-4 text-xs text-foreground hidden sm:table-cell">
-        <div className="flex flex-wrap gap-1">
-          {getPricingInfo(product).length > 0
-            ? getPricingInfo(product).map((item, index) => (
+        <td className="p-4 text-xs text-foreground hidden sm:table-cell">
+          <div className="flex flex-wrap gap-1">
+            {getPricingInfo(product).length > 0
+              ? getPricingInfo(product).map((item, index) => (
                 <span
                   key={index}
                   className="bg-primary/10 px-1 rounded"
@@ -444,59 +452,58 @@ const SortableRow = ({ product }: any) => {
                   {item.label}: ₹{item.value}
                 </span>
               ))
-            : "-"}
-        </div>
-      </td>
+              : "-"}
+          </div>
+        </td>
 
-      <td className="p-4 text-center">
-        <button
-          onClick={() => toggleSoldOut(product)}
-          className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
-            product.is_sold_out
-              ? "bg-destructive/10 text-destructive"
-              : "bg-emerald/10 text-emerald"
-          }`}
-        >
-          {product.is_sold_out
-            ? "Sold Out"
-            : "In Stock"}
-        </button>
-      </td>
+        <td className="p-4 text-center">
+          <button
+            onClick={() => toggleSoldOut(product)}
+            className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${product.is_sold_out
+                ? "bg-destructive/10 text-destructive"
+                : "bg-emerald/10 text-emerald"
+              }`}
+          >
+            {product.is_sold_out
+              ? "Sold Out"
+              : "In Stock"}
+          </button>
+        </td>
 
-      <td className="p-4">
-       <div className="flex items-center justify-end gap-2">
+        <td className="p-4">
+          <div className="flex items-center justify-end gap-2">
 
-  <button
-    {...attributes}
-    {...listeners}
-    className="cursor-grab active:cursor-grabbing touch-none"
-  >
-    ☰
-  </button>
+            <button
+              {...attributes}
+              {...listeners}
+              className="cursor-grab active:cursor-grabbing touch-none"
+            >
+              ☰
+            </button>
 
-  <Button
-    variant="ghost"
-    size="icon"
-    onClick={() => openEditDialog(product)}
-    className="h-8 w-8"
-  >
-    <Edit2 className="h-4 w-4" />
-  </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => openEditDialog(product)}
+              className="h-8 w-8"
+            >
+              <Edit2 className="h-4 w-4" />
+            </Button>
 
-  <Button
-    variant="ghost"
-    size="icon"
-    onClick={() => handleDelete(product.id)}
-    className="h-8 w-8 text-destructive hover:text-destructive"
-  >
-    <Trash2 className="h-4 w-4" />
-  </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => handleDelete(product.id)}
+              className="h-8 w-8 text-destructive hover:text-destructive"
+            >
+              <Trash2 className="h-4 w-4" />
+            </Button>
 
-</div>
-      </td>
-    </tr>
-  );
-};
+          </div>
+        </td>
+      </tr>
+    );
+  };
 
   if (!isAuthenticated) {
     return (
@@ -661,44 +668,44 @@ const SortableRow = ({ product }: any) => {
                       }
                     />
                   </div>
-                 <div className="space-y-2">
-  <Label>Categories</Label>
+                  <div className="space-y-2">
+                    <Label>Categories</Label>
 
-  <div className="border rounded-md p-3 max-h-52 overflow-y-auto space-y-2">
-    {categories?.map((cat) => (
-      <label
-        key={cat.id}
-        className="flex items-center gap-2 cursor-pointer"
-      >
-        <input
-          type="checkbox"
-          checked={formData.category_ids.includes(cat.id)}
-          onChange={(e) => {
-            if (e.target.checked) {
-              setFormData({
-                ...formData,
-                category_ids: [
-                  ...formData.category_ids,
-                  cat.id,
-                ],
-              });
-            } else {
-              setFormData({
-                ...formData,
-                category_ids:
-                  formData.category_ids.filter(
-                    (id) => id !== cat.id,
-                  ),
-              });
-            }
-          }}
-        />
+                    <div className="border rounded-md p-3 max-h-52 overflow-y-auto space-y-2">
+                      {categories?.map((cat) => (
+                        <label
+                          key={cat.id}
+                          className="flex items-center gap-2 cursor-pointer"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={formData.category_ids.includes(cat.id)}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setFormData({
+                                  ...formData,
+                                  category_ids: [
+                                    ...formData.category_ids,
+                                    cat.id,
+                                  ],
+                                });
+                              } else {
+                                setFormData({
+                                  ...formData,
+                                  category_ids:
+                                    formData.category_ids.filter(
+                                      (id) => id !== cat.id,
+                                    ),
+                                });
+                              }
+                            }}
+                          />
 
-        <span>{cat.name}</span>
-      </label>
-    ))}
-  </div>
-</div>
+                          <span>{cat.name}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="image">Product Image</Label>
@@ -813,7 +820,25 @@ const SortableRow = ({ product }: any) => {
                         />
                       </div>
 
+
                       <div>
+  <Label htmlFor="price_rs">RS</Label>
+
+  <Input
+    id="price_rs"
+    type="number"
+    value={formData.price_rs}
+    onChange={(e) =>
+      setFormData({
+        ...formData,
+        price_rs: e.target.value,
+      })
+    }
+    placeholder="₹"
+  />
+</div>
+
+                      {/* <div>
                         <Label htmlFor="price_pcs">Pcs</Label>
                         <Input
                           id="price_pcs"
@@ -827,9 +852,9 @@ const SortableRow = ({ product }: any) => {
                           }
                           placeholder="₹"
                         />
-                      </div>
+                      </div> */}
 
-                      <div>
+                      {/* <div>
                         <Label htmlFor="price_nos">Nos</Label>
                         <Input
                           id="price_nos"
@@ -843,9 +868,9 @@ const SortableRow = ({ product }: any) => {
                           }
                           placeholder="₹"
                         />
-                      </div>
+                      </div> */}
 
-                      <div>
+                      {/* <div>
                         <Label htmlFor="price_pac">Pac</Label>
                         <Input
                           id="price_pac"
@@ -859,7 +884,7 @@ const SortableRow = ({ product }: any) => {
                           }
                           placeholder="₹"
                         />
-                      </div>
+                      </div> */}
                     </div>
                   </div>
 
@@ -902,7 +927,7 @@ const SortableRow = ({ product }: any) => {
                       />
                       <Label>Try New</Label>
                     </div>
-                   
+
                   </div>
                   <Button
                     type="submit"
@@ -941,36 +966,36 @@ const SortableRow = ({ product }: any) => {
                 </tr>
               </thead>
               <DndContext
-  sensors={sensors}
-  collisionDetection={closestCenter}
-  onDragEnd={handleDragEnd}
->
-  <SortableContext
-    items={filteredProducts?.map((p) => p.id) || []}
-    strategy={verticalListSortingStrategy}
-  >
-    <tbody className="divide-y divide-border">
-                {filteredProducts?.map((product: any) => (
-  <SortableRow
-    key={product.id}
-    product={product}
-  />
-))}
-               
-                
-                {filteredProducts?.length === 0 && (
-                  <tr>
-                    <td
-                      colSpan={5}
-                      className="p-8 text-center text-muted-foreground italic"
-                    >
-                      No products found matching your search.
-                    </td>
-                  </tr>
-                )}
-              </tbody>
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragEnd={handleDragEnd}
+              >
+                <SortableContext
+                  items={filteredProducts?.map((p) => p.id) || []}
+                  strategy={verticalListSortingStrategy}
+                >
+                  <tbody className="divide-y divide-border">
+                    {filteredProducts?.map((product: any) => (
+                      <SortableRow
+                        key={product.id}
+                        product={product}
+                      />
+                    ))}
+
+
+                    {filteredProducts?.length === 0 && (
+                      <tr>
+                        <td
+                          colSpan={5}
+                          className="p-8 text-center text-muted-foreground italic"
+                        >
+                          No products found matching your search.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
                 </SortableContext>
-</DndContext>
+              </DndContext>
             </table>
           </div>
         </div>
