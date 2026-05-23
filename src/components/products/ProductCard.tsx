@@ -13,7 +13,7 @@ const weightOptions: { value: WeightOption; label: string }[] = [
   { value: "250g", label: "250g" },
   { value: "500g", label: "500g" },
   { value: "1kg", label: "1kg" },
-   { value: "rs", label: "₹" },
+  { value: "rs", label: "₹" },
   // { value: "pcs", label: "Pcs" },
   // { value: "nos", label: "Nos" },
   // { value: "pac", label: "Pac" },
@@ -27,46 +27,46 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const isAutoPrice = product.is_auto_price ?? false;
 
   // ✅ Main Price Logic
- const getPrice = (weight: WeightOption): number | null => {
-  const base1kg = product.price_1kg;
+  const getPrice = (weight: WeightOption): number | null => {
+    const base1kg = product.price_1kg;
 
-  // ✅ RS Product
-  if (weight === "rs") {
-    return product.price_rs ?? null;
-  }
+    // ✅ RS Product
+    if (weight === "rs") {
+      return product.price_rs ?? null;
+    }
 
-  // ✅ AUTO MODE
-  if (isAutoPrice && base1kg) {
+    // ✅ AUTO MODE
+    if (isAutoPrice && base1kg) {
+      switch (weight) {
+        case "1kg":
+          return Math.round(base1kg);
+
+        case "500g":
+          return Math.round(base1kg / 2);
+
+        case "250g":
+          return Math.round(base1kg / 4);
+
+        default:
+          return null;
+      }
+    }
+
+    // ✅ MANUAL MODE
     switch (weight) {
       case "1kg":
-        return Math.round(base1kg);
+        return product.price_1kg ?? null;
 
       case "500g":
-        return Math.round(base1kg / 2);
+        return product.price_500g ?? null;
 
       case "250g":
-        return Math.round(base1kg / 4);
+        return product.price_250g ?? null;
 
       default:
         return null;
     }
-  }
-
-  // ✅ MANUAL MODE
-  switch (weight) {
-    case "1kg":
-      return product.price_1kg ?? null;
-
-    case "500g":
-      return product.price_500g ?? null;
-
-    case "250g":
-      return product.price_250g ?? null;
-
-    default:
-      return null;
-  }
-};
+  };
 
   const availableWeights = weightOptions.filter(
     (opt) => getPrice(opt.value) !== null,
@@ -84,19 +84,19 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
     const mrp = product.mrp_price;
 
-   switch (selectedWeight) {
-  case "1kg":
-    return Math.round(mrp);
+    switch (selectedWeight) {
+      case "1kg":
+        return Math.round(mrp);
 
-  case "500g":
-    return Math.round(mrp / 2);
+      case "500g":
+        return Math.round(mrp / 2);
 
-  case "250g":
-    return Math.round(mrp / 4);
+      case "250g":
+        return Math.round(mrp / 4);
 
-  default:
-    return Math.round(mrp);
-}
+      default:
+        return Math.round(mrp);
+    }
   };
 
   const mrpPrice = getMrpByWeight();
@@ -146,41 +146,43 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
         {/* 🔼 TOP CONTENT */}
         <div>
-          <h3 className="text-[15px] font-normal text-foreground mt-1 mb-3 line-clamp-2 min-h-[40px] tracking-tight capitalize">
-            {product.title.toLowerCase()}
-          </h3>
-          <p className="text-sm text-black line-clamp-2 mb-2 font-medium">
-            {product.description }
-          </p>
+            <h3 className="text-[17px] font-bold text-foreground mt-1 mb-3 line-clamp-2 min-h-[40px] tracking-tight capitalize">
+    {product.title}
+  </h3>
+
+  <p className="text-sm text-black line-clamp-2 mb-2 font-medium">
+    {product.description}
+  </p>
+
 
 
 
 
           {/* Weight Buttons */}
           {!(availableWeights.length === 1 &&
-  availableWeights[0].value === "rs") && (
+            availableWeights[0].value === "rs") && (
 
-  <div className="flex flex-wrap gap-2 mb-3">
+              <div className="flex flex-wrap gap-2 mb-3">
 
-    {availableWeights.map((opt) => (
-      <button
-        key={opt.value}
-        onClick={() => setSelectedWeight(opt.value)}
-        disabled={product.is_sold_out}
-        className={cn(
-          "px-3 py-1.5 text-xs font-medium rounded-full border transition-all",
-          selectedWeight === opt.value
-            ? "bg-[#E6D3B3] text-[#5B3A29] border-[#5B3A29]"
-            : "bg-background text-[#5B3A29] border-border hover:border-[#5B3A29]",
-          product.is_sold_out && "opacity-50 cursor-not-allowed"
-        )}
-      >
-        {opt.label}
-      </button>
-    ))}
+                {availableWeights.map((opt) => (
+                  <button
+                    key={opt.value}
+                    onClick={() => setSelectedWeight(opt.value)}
+                    disabled={product.is_sold_out}
+                    className={cn(
+                      "px-3 py-1.5 text-xs font-medium rounded-full border transition-all",
+                      selectedWeight === opt.value
+                        ? "bg-[#E6D3B3] text-[#5B3A29] border-[#5B3A29]"
+                        : "bg-background text-[#5B3A29] border-border hover:border-[#5B3A29]",
+                      product.is_sold_out && "opacity-50 cursor-not-allowed"
+                    )}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
 
-  </div>
-)}
+              </div>
+            )}
         </div>
 
         {/* 🔽 BOTTOM (ALWAYS SAME POSITION) */}
