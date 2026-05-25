@@ -649,7 +649,7 @@ const AdminPage = () => {
                       onChange={(e) =>
                         setFormData({
                           ...formData,
-                          title: e.target.value.toUpperCase(), // This forces everything to CAPS
+                          title: e.target.value, // This forces everything to CAPS
                         })
                       }
                       required
