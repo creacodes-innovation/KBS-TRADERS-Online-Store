@@ -6,7 +6,13 @@ import bgTexture from "../../assets/bg-texture.png";
 
 const Footer = () => {
   return (
-    <footer className="relative text-primary-foreground">
+    <footer
+  className="relative text-[#D4AF5A]"
+  style={{
+    background:
+      "linear-gradient(180deg, #2B2217 0%, #241A12 50%, #1E160F 100%)",
+  }}
+>
 
       {/* --- BACKGROUND IMAGE --- */}
       <div
@@ -20,28 +26,62 @@ const Footer = () => {
       ></div>
 
       {/* --- CONTENT WRAPPER (Overlay for readability) --- */}
-      <div className="relative ">
-        <div className="container mx-auto px-4 py-12">
+      <div className="relative">
+       <div className="w-full py-12">
 
           {/* --- MAP SECTION --- */}
-          <div className="w-full h-48 md:h-64 rounded-lg overflow-hidden border border-primary-foreground/10 mb-12">
-            <iframe
-              title="KBS Traders Location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3556.3461816033578!2d76.34724677450792!3d9.943071674012783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b08739935274861%3A0x37776d0fc870fc5a!2sKBS%20TRADERS!5e1!3m2!1sen!2sin!4v1770401656623!5m2!1sen!2sin"
-              className="w-full h-full grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-500"
-              style={{ border: 0 }}
-              loading="lazy"
-            ></iframe>
-          </div>
+         <div className="max-w-7xl mx-auto bg-[#F8F6F2] rounded-[32px] border border-[#E5DCC7] overflow-hidden mb-16 shadow-md">
+<div className="grid grid-cols-1 lg:grid-cols-2">
+    {/* Left Side */}
+    <div className="p-8 md:p-12 flex flex-col justify-center">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#2B2217] mb-6">
+        VISIT OUR STORE
+      </h2>
 
+      <div className="text-[#3B3127] text-base sm:text-lg leading-8 sm:leading-10">
+        <p>SH15, opp. Govt HS School,</p>
+        <p>Kannankulangara,</p>
+        <p>Thrippunithura,</p>
+        <p>Kerala 682301</p>
+      </div>
+
+      <a
+        href="https://maps.google.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center justify-center mt-8 bg-[#C8A85A] text-white px-8 py-4 rounded-xl w-fit hover:opacity-90 transition"
+      >
+        View on Google Maps →
+      </a>
+    </div>
+
+    {/* Right Side */}
+    <div className="h-[300px] lg:h-[450px]">
+      <iframe
+        title="KBS Traders Location"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3556.3461816033578!2d76.34724677450792!3d9.943071674012783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b08739935274861%3A0x37776d0fc870fc5a!2sKBS%20TRADERS!5e1!3m2!1sen!2sin!4v1770401656623!5m2!1sen!2sin"
+        className="w-full h-full"
+        style={{ border: 0 }}
+        loading="lazy"
+      />
+    </div>
+  </div>
+</div>
+         <div
+  className="py-10 md:py-16"
+  style={{
+    background:
+      "linear-gradient(90deg,#24180F 0%,#2B1E12 50%,#24180F 100%)",
+  }}
+>
           {/* --- GRID SECTION --- */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-10 items-start">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-4 gap-10">
 
             {/* Column 1 */}
-            <div className="flex flex-col gap-4">
-              <h1 className="text-xl font-bold text-[#5B3A29] uppercase tracking-widest">KBS TRADERS</h1>
+            <div className="flex flex-col gap-4 lg:pr-10 lg:border-r border-[#5A4630]">
+              <h1 className="text-2xl md:text-xl font-bold text-white uppercase tracking-widest">KBS TRADERS</h1>
 
-              <ul className="space-y-2 text-sm text-[#5B3A29]">
+              <ul className="space-y-2 text-sm text-white">
                 <li className="flex items-center gap-2">
                   <Mail className="h-4 w-4" />
                   <a href="mailto:info@kbstraders.com">info@kbstraders.com</a>
@@ -59,26 +99,26 @@ const Footer = () => {
               </ul>
 
               {/* Social Icons */}
-              <div className="flex text-[#5B3A29] gap-4 mt-2">
-                <a href="https://www.instagram.com/kbstraders.in/" className="hover:text-accent transition-colors">
+            <div className="flex flex-wrap gap-3 mt-6">
+                <a href="https://www.instagram.com/kbstraders.in/" className="w-11 h-11 rounded-full border border-[#D4AF5A] flex items-center justify-center text-white hover:bg-[#D4AF5A] hover:text-[#2B2217] transition">
                   <Instagram className="h-5 w-5" />
                 </a>
-                <a href="https://www.facebook.com/profile.php?id=61579892137344" className="hover:text-accent transition-colors">
+                <a href="https://www.facebook.com/profile.php?id=61579892137344" className="w-11 h-11 rounded-full border border-[#D4AF5A] flex items-center justify-center text-white hover:bg-[#D4AF5A] hover:text-[#2B2217] transition">
                   <Facebook className="h-5 w-5" />
                 </a>
-                <a href="https://www.linkedin.com/company/kbstraderskerala/" className="hover:text-accent transition-colors">
+                <a href="https://www.linkedin.com/company/kbstraderskerala/" className="w-11 h-11 rounded-full border border-[#D4AF5A] flex items-center justify-center text-white hover:bg-[#D4AF5A] hover:text-[#2B2217] transition">
                   <Linkedin className="h-5 w-5" />
                 </a>
-                <a href="https://wa.me/919946601888" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">
+                <a href="https://wa.me/919946601888" target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-full border border-[#D4AF5A] flex items-center justify-center text-white hover:bg-[#D4AF5A] hover:text-[#2B2217] transition">
                   <FontAwesomeIcon icon={faWhatsapp} className="h-5 w-5" />
                 </a>
               </div>
             </div>
 
             {/* Column 2 */}
-            <div>
-              <h4 className="font-bold text-sm uppercase mb-6 text-[#5B3A29] tracking-widest">CATEGORIES</h4>
-              <ul className="space-y-3 text-sm text-[#5B3A29]">
+            <div className="lg:px-10 lg:border-r border-[#5A4630]">
+              <h4 className="font-bold text-sm uppercase mb-6 text-white tracking-widest">CATEGORIES</h4>
+              <ul className="space-y-3 text-sm text-white">
                 <li><a href="#categories" className="hover:text-accent">Dates</a></li>
                 <li><a href="#categories" className="hover:text-accent">Nuts</a></li>
                 <li><a href="#categories" className="hover:text-accent">Dry Fruits</a></li>
@@ -89,9 +129,9 @@ const Footer = () => {
             </div>
 
             {/* Column 3 */}
-            <div>
-              <h4 className="font-bold text-sm uppercase text-[#5B3A29] mb-6 tracking-widest">KNOW US</h4>
-              <ul className="space-y-3 text-sm text-[#5B3A29]">
+           <div className="lg:px-10 lg:border-r border-[#5A4630]">
+              <h4 className="font-bold text-sm uppercase text-white mb-6 tracking-widest">KNOW US</h4>
+              <ul className="space-y-3 text-sm text-white">
                 <li><Link to="/about-us" className="hover:text-accent">About Us</Link></li>
                 <li><a href="#" className="hover:text-accent">Contact Us</a></li>
                 <li><a href="#" className="hover:text-accent">Blog</a></li>
@@ -100,9 +140,9 @@ const Footer = () => {
             </div>
 
             {/* Column 4 */}
-            <div>
-              <h4 className="font-bold text-sm uppercase text-[#5B3A29] mb-6 tracking-widest">POLICIES</h4>
-              <ul className="space-y-3 text-sm text-[#5B3A29]">
+           <div className="lg:pl-10">
+              <h4 className="font-bold text-sm uppercase text-white mb-6 tracking-widest">POLICIES</h4>
+              <ul className="space-y-3 text-sm text-white">
                 <li><a href="#" className="hover:text-accent">Terms & Conditions</a></li>
                 <li><a href="#" className="hover:text-accent">Privacy & Policy</a></li>
                 <li><a href="#" className="hover:text-accent">Return Policy</a></li>
@@ -114,10 +154,12 @@ const Footer = () => {
           </div>
 
           {/* --- COPYRIGHT --- */}
-          <div className="border-t border-primary-foreground/10 mt-16 pt-8 flex flex-col items-center text-xs text-[#5B3A29] text-center">
-            <p>© 2026 KBS Traders. All rights reserved.</p>
-          </div>
-
+          <div className="border-t border-[#5A4630] mt-12">
+ <div className="max-w-7xl mx-auto px-4 py-6 text-center text-sm text-white">
+    <p>© 2026 KBS Traders. All rights reserved.</p>
+  </div>
+</div>
+        </div>
         </div>
       </div>
     </footer>
