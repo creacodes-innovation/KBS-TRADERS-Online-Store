@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom';
-import { useCategories } from '@/hooks/useProducts';
-import { Skeleton } from '@/components/ui/skeleton';
-import { useEffect } from 'react';
+import { Link } from "react-router-dom";
+import { useCategories } from "@/hooks/useProducts";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useEffect } from "react";
 // Import Lucide Icons
-import { Star, Package, Gift, Tag, LayoutGrid } from 'lucide-react';
+import { Star, Package, Gift, Tag, LayoutGrid } from "lucide-react";
+
 
 const CategoryGrid = () => {
   useEffect(() => {
@@ -14,7 +15,7 @@ const CategoryGrid = () => {
 
   // Mapping names to React Icons
   const categoryIcons: Record<string, React.ElementType> = {
-    'TRY NEW ': Star, // Updated from EXCLUSIVE
+    "TRY NEW ": Star, // Updated from EXCLUSIVE
     COMBOS: Package,
     GIFTING: Gift,
     OFFERS: Tag,
@@ -24,18 +25,24 @@ const CategoryGrid = () => {
     return (
       <section id="categories" className="py-8 bg-white">
         <div className="container mx-auto px-4">
-          <p className="text-center text-destructive">Failed to load categories</p>
+          <p className="text-center text-destructive">
+            Failed to load categories
+          </p>
         </div>
       </section>
     );
   }
 
   // Updated EXCLUSIVE to TRY NEW in the priority list
-  const priorityNames = ['COMBOS', 'GIFTING'];
+  const priorityNames = ["COMBOS", "GIFTING"];
 
-  const priorityCategories = categories?.filter(cat =>
-    priorityNames.includes(cat.name.toUpperCase())
-  ).sort((a, b) => priorityNames.indexOf(a.name.toUpperCase()) - priorityNames.indexOf(b.name.toUpperCase()));
+  const priorityCategories = categories
+    ?.filter((cat) => priorityNames.includes(cat.name.toUpperCase()))
+    .sort(
+      (a, b) =>
+        priorityNames.indexOf(a.name.toUpperCase()) -
+        priorityNames.indexOf(b.name.toUpperCase()),
+    );
 
   const mainCategories = categories
     ?.filter(
@@ -43,69 +50,96 @@ const CategoryGrid = () => {
         !priorityNames.includes(cat.name.toUpperCase()) &&
         cat.slug !== "offers" &&
         cat.slug !== "trynew" &&
-        cat.slug !== "try-new"
+        cat.slug !== "try-new",
     )
-    .sort(
-      (a, b) => (a.display_order || 0) - (b.display_order || 0)
-    );
+    .sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
   return (
     <section id="categories" className="py-6 bg-white">
-
       {/* 1. NAVBAR UI SECTION (With X-Axis Scroll Support) */}
-      <div className="container mx-auto px-4">
-        <div
-          className="flex items-center gap-3 mb-6 overflow-x-auto pb-4 no-scrollbar scroll-smooth antialiased"
-          style={{ WebkitOverflowScrolling: "touch" }}
+      <div className="grid grid-cols-4 gap-3 mb-8">
+        {/* TRY NEW */}
+        <Link
+          to="/category/trynew"
+          className="
+      bg-[#F6F1EA]
+      rounded-2xl
+      h-[110px]
+      flex
+      flex-col
+      items-center
+      justify-center
+      shadow-sm
+      hover:shadow-md
+      transition-all
+    "
         >
-          {isLoading ? (
-            Array.from({ length: 4 }).map((_, i) => (
-              <Skeleton key={i} className="h-10 w-28 rounded-full flex-shrink-0" />
-            ))
-          ) : (
-            <>
-              {/* TRY NEW */}
-              <Link
-                to="/category/trynew"
-                className="flex items-center gap-2 px-4 py-2 bg-[#E6D3B3] hover:bg-gray-200 text-[#5B3A29] rounded-full text-sm font-semibold transition-all whitespace-nowrap shadow-sm flex-shrink-0 group"
-              >
-                <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white border border-gray-100">
-                  <Star size={14} strokeWidth={2.5} />
-                </div>
-                TRY NEW
-              </Link>
+          <Star size={38} className="text-[#8B5E34] mb-3" />
 
-              {/* OFFERS */}
-              <Link
-                to="/category/offers"
-                className="flex items-center gap-2 px-4 py-2 bg-[#E6D3B3] hover:bg-gray-200 text-[#5B3A29] rounded-full text-sm font-semibold transition-all whitespace-nowrap shadow-sm flex-shrink-0 group"
-              >
-                <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white border border-gray-100">
-                  <Tag size={14} strokeWidth={2.5} />
-                </div>
-                OFFERS
-              </Link>
+          <span className="text-sm font-medium text-[#5B3A29]">Try New</span>
+        </Link>
 
-              {/* COMBOS + GIFTING */}
-              {priorityCategories?.map((category) => {
-                const IconComponent =
-                  categoryIcons[category.name.toUpperCase()] || LayoutGrid;
+        {/* OFFERS */}
+        <Link
+          to="/category/offers"
+          className="
+      bg-[#F6F1EA]
+      rounded-2xl
+      h-[110px]
+      flex
+      flex-col
+      items-center
+      justify-center
+      shadow-sm
+      hover:shadow-md
+      transition-all
+    "
+        >
+          <Tag size={38} className="text-[#8B5E34] mb-3" />
 
-                return (
-                  <Link
-                    key={category.id}
-                    to={`/category/${category.slug}`}
-                    className="flex items-center gap-2 px-4 py-2 bg-[#E6D3B3] hover:bg-gray-200 text-[#5B3A29] rounded-full text-sm font-semibold transition-all whitespace-nowrap shadow-sm flex-shrink-0 group"
-                  >
-                    <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white border border-gray-100">
-                      <IconComponent size={14} strokeWidth={2.5} />
-                    </div>
-                    {category.name.toUpperCase()}
-                  </Link>
-                );
-              })}
-            </>
-          )}
-        </div>
+          <span className="text-sm font-medium text-[#5B3A29]">Offers</span>
+        </Link>
+
+        {/* COMBOS */}
+        <Link
+          to="/category/combos"
+          className="
+      bg-[#F6F1EA]
+      rounded-2xl
+      h-[110px]
+      flex
+      flex-col
+      items-center
+      justify-center
+      shadow-sm
+      hover:shadow-md
+      transition-all
+    "
+        >
+          <Package size={38} className="text-[#8B5E34] mb-3" />
+
+          <span className="text-sm font-medium text-[#5B3A29]">Combos</span>
+        </Link>
+
+        {/* GIFTING */}
+        <Link
+          to="/category/gifting"
+          className="
+      bg-[#F6F1EA]
+      rounded-2xl
+      h-[110px]
+      flex
+      flex-col
+      items-center
+      justify-center
+      shadow-sm
+      hover:shadow-md
+      transition-all
+    "
+        >
+          <Gift size={38} className="text-[#8B5E34] mb-3" />
+
+          <span className="text-sm font-medium text-[#5B3A29]">Gifting</span>
+        </Link>
       </div>
 
       {/* --- Full Width Border Line --- */}
@@ -117,37 +151,39 @@ const CategoryGrid = () => {
           <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground">
             Shop by Category
           </h2>
-          <p className="text-[#5B3A29] text-sm mt-1">Explore our premium collection</p>
+          <p className="text-[#5B3A29] text-sm mt-1">
+            Explore our premium collection
+          </p>
         </div>
 
         {/* 3. MAIN CATEGORY GRID */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 stagger-children">
           {isLoading
             ? Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="flex flex-col items-center">
-                <Skeleton className="w-40 h-35 md:w-36 md:h-36 rounded-xl" />
-                <Skeleton className="w-30 h-14 mt-4" />
-              </div>
-            ))
+                <div key={i} className="flex flex-col items-center">
+                  <Skeleton className="w-40 h-35 md:w-36 md:h-36 rounded-xl" />
+                  <Skeleton className="w-30 h-14 mt-4" />
+                </div>
+              ))
             : mainCategories?.map((category) => (
-              <Link
-                key={category.id}
-                to={`/category/${category.slug}`}
-                className="group flex flex-col items-center transition-all duration-300"
-              >
-                <div className="aspect-square w-full overflow-hidden rounded-2xl">
-                  <img
-                    src={category.image_url}
-                    className="w-full h-full object-cover object-center"
-                  />
-                </div>
-                <div className="mt-3 text-center">
-                  <h3 className="text-xl md:text-sm font-bold text-gray-800 uppercase tracking-tight group-hover:text-[#5B3A29]">
-                    {category.name}
-                  </h3>
-                </div>
-              </Link>
-            ))}
+                <Link
+                  key={category.id}
+                  to={`/category/${category.slug}`}
+                  className="group flex flex-col items-center transition-all duration-300"
+                >
+                  <div className="aspect-square w-full overflow-hidden rounded-2xl">
+                    <img
+                      src={category.image_url}
+                      className="w-full h-full object-cover object-center"
+                    />
+                  </div>
+                  <div className="mt-3 text-center">
+                    <h3 className="text-xl md:text-sm font-bold text-gray-800 uppercase tracking-tight group-hover:text-[#5B3A29]">
+                      {category.name}
+                    </h3>
+                  </div>
+                </Link>
+              ))}
         </div>
       </div>
     </section>
