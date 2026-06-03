@@ -7,7 +7,7 @@ import bgTexture from "../../assets/bg-texture.png";
 const Footer = () => {
   return (
     <footer
-    id="contact"
+      id="contact"
       className="relative text-[#D4AF5A]"
       style={{
         background:
@@ -30,9 +30,9 @@ const Footer = () => {
       <div className="relative">
         <div className="w-full ">
 
-          
+
           {/* --- MAP SECTION --- */}
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-12">
+          <div className="max-w-7xl pt-10 mx-auto px-4 sm:px-6 mb-12">
             <div className="bg-white rounded-[28px] border border-[#E8E1D3] overflow-hidden shadow-[0_10px_25px_rgba(0,0,0,0.06)]">
 
               <div className="grid grid-cols-1 lg:grid-cols-2">
@@ -61,14 +61,14 @@ const Footer = () => {
 
                   <div className="ml-15 md:ml-16 mt-5">
                     <a
-  href="https://www.google.com/maps/search/?api=1&query=9.943071674012783,76.34724677450792"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="inline-flex items-center gap-3 bg-[#C8A85A] text-white px-6 py-3 rounded-xl hover:bg-[#B99849] transition-all duration-300"
->
-  View on Google Maps
-  <span className="text-lg">→</span>
-</a>
+                      href="https://maps.app.goo.gl/6KR5DpVNewjMqoVM7?g_st=ic"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-3 bg-[#C8A85A] text-white px-6 py-3 rounded-xl hover:bg-[#B99849] transition-all duration-300"
+                    >
+                      View on Google Maps
+                      <span className="text-lg">→</span>
+                    </a>
                   </div>
 
                 </div>
@@ -88,14 +88,15 @@ const Footer = () => {
             </div>
           </div>
           <div
-            className="py-10 md:py-16"
+
+            className="pt-10 pb-4 md:pt-16 md:pb-8"
             style={{
               background:
                 "linear-gradient(90deg,#24180F 0%,#2B1E12 50%,#24180F 100%)",
             }}
           >
             {/* --- GRID SECTION --- */}
-            <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-4 gap-10">
+            <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-10">
 
               {/* Column 1 */}
               <div className="flex flex-col gap-4 lg:pr-10 lg:border-r border-[#5A4630]">
@@ -136,7 +137,7 @@ const Footer = () => {
               </div>
 
               {/* Column 2 */}
-              <div className="lg:px-10 lg:border-r border-[#5A4630]">
+              {/* <div className="lg:px-10 lg:border-r border-[#5A4630]">
                 <h4 className="font-bold text-sm uppercase mb-6 text-white tracking-widest">CATEGORIES</h4>
                 <ul className="space-y-3 text-sm text-white">
                   <li><a href="#categories" className="hover:text-accent">Dates</a></li>
@@ -146,7 +147,7 @@ const Footer = () => {
                   <li><a href="#categories" className="hover:text-accent">Spices</a></li>
                   <li><a href="#categories" className="hover:text-accent">Seeds</a></li>
                 </ul>
-              </div>
+              </div> */}
 
               {/* Column 3 */}
               <div className="lg:px-10 lg:border-r border-[#5A4630]">
@@ -175,7 +176,7 @@ const Footer = () => {
 
             {/* --- COPYRIGHT --- */}
             <div className="border-t border-[#5A4630] mt-12">
-              <div className="max-w-7xl mx-auto px-4 py-6 text-center text-sm text-white">
+              <div className="max-w-7xl mx-auto px-4 py-3 text-center text-sm text-white">
                 <p>© 2026 KBS Traders. All rights reserved.</p>
               </div>
             </div>

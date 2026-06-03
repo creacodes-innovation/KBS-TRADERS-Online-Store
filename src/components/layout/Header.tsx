@@ -12,7 +12,7 @@ import { useCart } from "@/context/CartContext";
 import { cn } from "@/lib/utils";
 
 import logo from "@/assets/logo.png";
-import navbarBg from "@/assets/navbar-bg.png";
+// import navbarBg from "@/assets/navbar-bg.png";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -28,16 +28,11 @@ const Header = () => {
   return (
     <>
       <header
-        style={{
-          backgroundImage: `url(${navbarBg})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-        className={cn(
-          "sticky top-0 z-50 w-full bg-[#F8EFE5]"
-        )}
-      >
-        <div className="container mx-auto px-4">
+  className={cn(
+    "sticky top-0 z-50 w-full bg-[#EFE4D8]"
+  )}
+>
+        <div className="container  mx-auto px-4">
 
           <div className="flex h-[55px] md:h-[90px] items-center justify-between">
 

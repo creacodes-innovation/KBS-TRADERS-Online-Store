@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate} from 'react-router-dom';
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
@@ -21,6 +22,8 @@ import mbanner4 from '@/assets/mobilebanner4.jpeg'
 
 const Hero = () => {
   const [activeSlide, setActiveSlide] = useState(1);
+    const [searchQuery, setSearchQuery] = useState('');
+     const navigate = useNavigate();
 
  const desktopBanners = [
   banner1,
@@ -36,8 +39,17 @@ const mobileBanners = [
   mbanner4,
 ];
 
+const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery('');
+    }
+  };
+
+
   return (
-    <section className="bg-white pt-2 pb-8">
+   <section className="bg-white pt-2 pb-8 overflow-hidden">
 
       <div className="container mx-auto px-4">
 
@@ -72,6 +84,7 @@ const mobileBanners = [
 
         <div className="pt-4">
   <div className="relative">
+     <form onSubmit={handleSearch} >
 
     <Search
       className="
@@ -87,6 +100,8 @@ const mobileBanners = [
 
     <input
       type="text"
+       onChange={(e) => setSearchQuery(e.target.value)}
+       value={searchQuery}
       placeholder="Search for Dates, Nuts, Spices..."
       className="
         w-full
@@ -107,12 +122,13 @@ const mobileBanners = [
         placeholder:text-gray-400
       "
     />
+    </form>
   </div>
 </div>
 
         {/* SHIPPING BANNER */}
 
-      <div className="mt-4 flex justify-center md:block">
+     <div className="mt-4 flex justify-center md:block">
   <div
     className="
       w-fit
@@ -120,37 +136,35 @@ const mobileBanners = [
       sm:max-w-[420px]
       md:max-w-none
       md:w-full
-
       rounded-xl
       bg-[#EFE4D8]
-
       px-4
-      sm:px-5
-      md:px-5
-
       py-2.5
-      md:py-3
-
       flex
       items-center
       justify-center
-      gap-2
+      gap-2.5
     "
   >
-    <Truck className="h-4 w-4 md:h-5 md:w-5 text-[#5A3E2B] flex-shrink-0" />
+    <Truck
+      className="h-[16px] w-[16px] md:h-[18px] md:w-[18px] text-[#8B6B52] flex-shrink-0"
+      strokeWidth={1.8}
+    />
 
-    <span
-      className="
-        text-[12px]
-        sm:text-sm
-        md:text-base
-        font-medium
-        text-[#5A3E2B]
-        whitespace-nowrap
-      "
-    >
-      Dispatch in 24hrs | Free Shipping on orders above ₹1999
-    </span>
+   <span
+  style={{ fontFamily: "Georgia, serif" }}
+  className="
+    text-[9px]
+    sm:text-[10px]
+    md:text-[15px]
+    font-semibold
+    text-[#6B4E3D]
+    whitespace-nowrap
+    leading-none
+  "
+>
+  Dispatch in 24 hours | Free shipping on orders above ₹1999
+</span>
   </div>
 </div>
 
@@ -158,7 +172,7 @@ const mobileBanners = [
 
        {/* HERO CAROUSEL */}
 
-<div className="mt-6 overflow-hidden ">
+<div className="mt-6 w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] overflow-hidden">
   <Swiper
     modules={[Pagination, Autoplay]}
     autoplay={{
@@ -181,7 +195,7 @@ const mobileBanners = [
           <img
             src={banner}
             alt={`Banner ${index + 1}`}
-            className="w-full "
+            className="w-full h-auto object-cover"
           />
         </picture>
       </SwiperSlide>

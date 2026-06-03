@@ -56,14 +56,16 @@ const CategoryGrid = () => {
   return (
     <section id="categories" className="py-6 bg-white">
       {/* 1. NAVBAR UI SECTION (With X-Axis Scroll Support) */}
-      <div className="grid grid-cols-4 gap-3 mb-8">
-        {/* TRY NEW */}
-        <Link
-          to="/category/trynew"
-          className="
+<div className="grid grid-cols-4 gap-2 mb-6">
+  {/* TRY NEW */}
+  <Link
+    to="/category/trynew"
+    className="
       bg-[#F6F1EA]
-      rounded-2xl
-      h-[110px]
+      rounded-lg
+      h-[68px]
+      md:h-[78px]
+      lg:h-[110px]
       flex
       flex-col
       items-center
@@ -72,19 +74,25 @@ const CategoryGrid = () => {
       hover:shadow-md
       transition-all
     "
-        >
-          <Star size={38} className="text-[#8B5E34] mb-3" />
+  >
+    <Star
+      size={22}
+      className="text-[#8B5E34] mb-1 md:mb-1 lg:mb-3"
+    />
+    <span className="text-[10px] md:text-[11px] lg:text-sm font-medium text-[#5B3A29]">
+      Try New
+    </span>
+  </Link>
 
-          <span className="text-sm font-medium text-[#5B3A29]">Try New</span>
-        </Link>
-
-        {/* OFFERS */}
-        <Link
-          to="/category/offers"
-          className="
+  {/* OFFERS */}
+  <Link
+    to="/category/offers"
+    className="
       bg-[#F6F1EA]
-      rounded-2xl
-      h-[110px]
+      rounded-lg
+      h-[68px]
+      md:h-[78px]
+      lg:h-[110px]
       flex
       flex-col
       items-center
@@ -93,19 +101,25 @@ const CategoryGrid = () => {
       hover:shadow-md
       transition-all
     "
-        >
-          <Tag size={38} className="text-[#8B5E34] mb-3" />
+  >
+    <Tag
+      size={22}
+      className="text-[#8B5E34] mb-1 md:mb-1 lg:mb-3"
+    />
+    <span className="text-[10px] md:text-[11px] lg:text-sm font-medium text-[#5B3A29]">
+      Offers
+    </span>
+  </Link>
 
-          <span className="text-sm font-medium text-[#5B3A29]">Offers</span>
-        </Link>
-
-        {/* COMBOS */}
-        <Link
-          to="/category/combos"
-          className="
+  {/* COMBOS */}
+  <Link
+    to="/category/combos"
+    className="
       bg-[#F6F1EA]
-      rounded-2xl
-      h-[110px]
+      rounded-lg
+      h-[68px]
+      md:h-[78px]
+      lg:h-[110px]
       flex
       flex-col
       items-center
@@ -114,19 +128,25 @@ const CategoryGrid = () => {
       hover:shadow-md
       transition-all
     "
-        >
-          <Package size={38} className="text-[#8B5E34] mb-3" />
+  >
+    <Package
+      size={22}
+      className="text-[#8B5E34] mb-1 md:mb-1 lg:mb-3"
+    />
+    <span className="text-[10px] md:text-[11px] lg:text-sm font-medium text-[#5B3A29]">
+      Combos
+    </span>
+  </Link>
 
-          <span className="text-sm font-medium text-[#5B3A29]">Combos</span>
-        </Link>
-
-        {/* GIFTING */}
-        <Link
-          to="/category/gifting"
-          className="
+  {/* GIFTING */}
+  <Link
+    to="/category/gifting"
+    className="
       bg-[#F6F1EA]
-      rounded-2xl
-      h-[110px]
+      rounded-lg
+      h-[68px]
+      md:h-[78px]
+      lg:h-[110px]
       flex
       flex-col
       items-center
@@ -135,12 +155,16 @@ const CategoryGrid = () => {
       hover:shadow-md
       transition-all
     "
-        >
-          <Gift size={38} className="text-[#8B5E34] mb-3" />
-
-          <span className="text-sm font-medium text-[#5B3A29]">Gifting</span>
-        </Link>
-      </div>
+  >
+    <Gift
+      size={22}
+      className="text-[#8B5E34] mb-1 md:mb-1 lg:mb-3"
+    />
+    <span className="text-[10px] md:text-[11px] lg:text-sm font-medium text-[#5B3A29]">
+      Gifting
+    </span>
+  </Link>
+</div>
 
       {/* --- Full Width Border Line --- */}
       <div className="w-full border-b border-gray-100 mb-10"></div>
@@ -178,9 +202,9 @@ const CategoryGrid = () => {
                     />
                   </div>
                   <div className="mt-3 text-center">
-                    <h3 className="text-xl md:text-sm font-bold text-gray-800 uppercase tracking-tight group-hover:text-[#5B3A29]">
-                      {category.name}
-                    </h3>
+                   <h3 className="font-display text-lg md:text-xl font-bold text-gray-800 tracking-tight group-hover:text-[#5B3A29]">
+  {category.name}
+</h3>
                   </div>
                 </Link>
               ))}
