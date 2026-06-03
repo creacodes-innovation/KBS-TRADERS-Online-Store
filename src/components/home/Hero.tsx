@@ -112,18 +112,25 @@ const mobileBanners = [
 
         {/* SHIPPING BANNER */}
 
-       <div className="mt-5 flex justify-center md:block">
+      <div className="mt-4 flex justify-center md:block">
   <div
     className="
       w-fit
-      max-w-[300px]
-      sm:max-w-[340px]
+      max-w-[340px]
+      sm:max-w-[420px]
       md:max-w-none
       md:w-full
+
       rounded-xl
       bg-[#EFE4D8]
-      px-3 md:px-4
-      py-3
+
+      px-4
+      sm:px-5
+      md:px-5
+
+      py-2.5
+      md:py-3
+
       flex
       items-center
       justify-center
@@ -132,8 +139,17 @@ const mobileBanners = [
   >
     <Truck className="h-4 w-4 md:h-5 md:w-5 text-[#5A3E2B] flex-shrink-0" />
 
-    <span className="text-xs md:text-base font-medium text-[#5A3E2B] whitespace-nowrap">
-      Dispatch in 24hrs | Free Shipping ₹1999+
+    <span
+      className="
+        text-[12px]
+        sm:text-sm
+        md:text-base
+        font-medium
+        text-[#5A3E2B]
+        whitespace-nowrap
+      "
+    >
+      Dispatch in 24hrs | Free Shipping on orders above ₹1999
     </span>
   </div>
 </div>
@@ -142,7 +158,7 @@ const mobileBanners = [
 
        {/* HERO CAROUSEL */}
 
-<div className="mt-6 overflow-hidden rounded-2xl">
+<div className="mt-6 overflow-hidden ">
   <Swiper
     modules={[Pagination, Autoplay]}
     autoplay={{
@@ -165,7 +181,7 @@ const mobileBanners = [
           <img
             src={banner}
             alt={`Banner ${index + 1}`}
-            className="w-full rounded-2xl"
+            className="w-full "
           />
         </picture>
       </SwiperSlide>
