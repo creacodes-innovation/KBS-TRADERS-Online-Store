@@ -37,7 +37,7 @@ const mobileBanners = [
 ];
 
   return (
-    <section className="bg-[#F8EFE5] pt-2 pb-8">
+    <section className="bg-white pt-2 pb-8">
 
       <div className="container mx-auto px-4">
 
@@ -45,97 +45,98 @@ const mobileBanners = [
 
         {/* TRUSTED BADGE */}
 
-        <div className="flex justify-center  mt-4">
+       <div className="flex justify-center mt-4">
+  <div
+    className="
+      inline-flex
+      items-center
+      gap-1.5 md:gap-2
+      rounded-full
+      border
+      border-[#C89B5E]
+      bg-white
+      px-3 py-1.5
+      md:px-5 md:py-2
+      text-[#8D6A34]
+    "
+  >
+    <Sparkles className="h-3 w-3 md:h-4 md:w-4" />
 
-          <div
-            className="
-            flex
-            items-center
-            gap-2
-            rounded-full
-            border
-            border-[#C89B5E]
-            px-5
-            py-2
-            text-[#C89B5E]
-            bg-white
-          "
-          >
-            <Sparkles className="h-4 w-4" />
-
-            <span className="font-medium text-sm">
-              Trusted Quality Since 1970
-            </span>
-          </div>
-
-        </div>
+    <span className="text-[11px] md:text-sm font-medium whitespace-nowrap">
+      Trusted Quality Since 1970
+    </span>
+  </div>
+</div>
 
  {/* SEARCH BAR */}
 
         <div className="pt-4">
-          <div className="relative">
+  <div className="relative">
 
-            <Search
-              className="
-                absolute
-                left-4
-                top-1/2
-                -translate-y-1/2
-                h-5
-                w-5
-                text-gray-500
-              "
-            />
+    <Search
+      className="
+        absolute
+        left-4 md:left-5
+        top-1/2
+        -translate-y-1/2
+        h-5 w-5
+        md:h-6 md:w-6
+        text-gray-500
+      "
+    />
 
-            <input
-              type="text"
-              placeholder="Search for Dates, Nuts, Spices..."
-              className="
-                w-full
-                rounded-full
-                border
-                border-gray-300
-                bg-white
-                py-4
-                pl-12
-                pr-4
-                text-sm
-                outline-none
-                shadow-sm
-              "
-            />
-          </div>
-        </div>
+    <input
+      type="text"
+      placeholder="Search for Dates, Nuts, Spices..."
+      className="
+        w-full
+        rounded-full
+        border
+        border-[#D8D8D8]
+        bg-white
+        py-3
+        md:py-3.5
+        lg:py-4.5
+        pl-12
+        md:pl-14
+        pr-4
+        text-sm
+        md:text-base
+        outline-none
+        shadow-sm
+        placeholder:text-gray-400
+      "
+    />
+  </div>
+</div>
 
         {/* SHIPPING BANNER */}
 
-        <div
-          className="
-          mt-5
-          rounded-xl
-          bg-[#EFE4D8]
-          px-4
-          py-3
-          flex
-          items-center
-          justify-center
-          gap-3
-          text-center
-        "
-        >
-          <Truck className="h-5 w-5 text-[#5A3E2B]" />
+       <div className="mt-5 flex justify-center md:block">
+  <div
+    className="
+      w-fit
+      max-w-[300px]
+      sm:max-w-[340px]
+      md:max-w-none
+      md:w-full
+      rounded-xl
+      bg-[#EFE4D8]
+      px-3 md:px-4
+      py-3
+      flex
+      items-center
+      justify-center
+      gap-2
+    "
+  >
+    <Truck className="h-4 w-4 md:h-5 md:w-5 text-[#5A3E2B] flex-shrink-0" />
 
-          <span
-            className="
-            text-sm
-            md:text-base
-            font-medium
-            text-[#5A3E2B]
-          "
-          >
-            Dispatch in 24 hours | Free shipping on orders above ₹1999
-          </span>
-        </div>
+    <span className="text-xs md:text-base font-medium text-[#5A3E2B] whitespace-nowrap">
+      Dispatch in 24hrs | Free Shipping ₹1999+
+    </span>
+  </div>
+</div>
 
         
 

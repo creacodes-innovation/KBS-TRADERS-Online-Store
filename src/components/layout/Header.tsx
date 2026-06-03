@@ -39,7 +39,7 @@ const Header = () => {
       >
         <div className="container mx-auto px-4">
 
-          <div className="flex h-27 items-center justify-between">
+         <div className="flex h-[55px] md:h-[90px] items-center justify-between">
 
             {/* LEFT */}
             <div className="flex items-center">
@@ -67,20 +67,21 @@ const Header = () => {
             </div>
 
             {/* CENTER LOGO */}
-            <Link
-              to="/"
-              className="flex flex-col  items-center"
-            >
-              <img
-                src={logo}
-                alt="KBS Traders"
-                className="h-12 md:h-14 w-auto"
-              />
+          
+<Link
+  to="/"
+  className="flex items-center gap-2 md:gap-3"
+>
+  <img
+    src={logo}
+    alt="KBS Traders"
+    className="h-9 md:h-11 w-auto"
+  />
 
-              <h1 className="text-lg md:text-3xl font-serif font-bold text-[#C89B5E]">
-                KBS TRADERS
-              </h1>
-            </Link>
+  <h1 className="text-base md:text-2xl font-serif font-bold text-[#C89B5E] tracking-wide">
+    KBS TRADERS
+  </h1>
+</Link>
 
             {/* RIGHT CART */}
             <div>
