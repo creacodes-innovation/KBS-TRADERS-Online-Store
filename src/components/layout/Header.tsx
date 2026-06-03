@@ -39,7 +39,7 @@ const Header = () => {
       >
         <div className="container mx-auto px-4">
 
-         <div className="flex h-[55px] md:h-[90px] items-center justify-between">
+          <div className="flex h-[55px] md:h-[90px] items-center justify-between">
 
             {/* LEFT */}
             <div className="flex items-center">
@@ -48,7 +48,7 @@ const Header = () => {
                 <Button
                   variant="ghost"
                   size="icon"
-                   className="lg:hidden"
+                  className="lg:hidden"
                   onClick={() => navigate(-1)}
                 >
                   <ArrowLeft className="h-6 w-6" />
@@ -57,7 +57,7 @@ const Header = () => {
                 <Button
                   variant="ghost"
                   size="icon"
-                   className="md:hidden"
+                  className="md:hidden"
                   onClick={() => setIsMobileMenuOpen(true)}
                 >
                   <Menu className="h-7 w-7 text-[#5A3E2B]" />
@@ -67,21 +67,21 @@ const Header = () => {
             </div>
 
             {/* CENTER LOGO */}
-          
-<Link
-  to="/"
-  className="flex items-center gap-2 md:gap-3"
->
-  <img
-    src={logo}
-    alt="KBS Traders"
-    className="h-9 md:h-11 w-auto"
-  />
 
-  <h1 className="text-base md:text-2xl font-serif font-bold text-[#C89B5E] tracking-wide">
-    KBS TRADERS
-  </h1>
-</Link>
+            <Link
+              to="/"
+              className="flex items-center gap-2 md:gap-3"
+            >
+              <img
+                src={logo}
+                alt="KBS Traders"
+                className="h-9 md:h-11 w-auto"
+              />
+
+              <h1 className="text-base md:text-2xl font-serif font-bold text-[#C89B5E] tracking-wide">
+                KBS TRADERS
+              </h1>
+            </Link>
 
             {/* RIGHT CART */}
             <div>
@@ -89,7 +89,7 @@ const Header = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                
+
                 className="relative"
                 onClick={openCart}
               >
@@ -195,19 +195,20 @@ const Header = () => {
                 About Us
               </Link>
 
-              <Link
-                to="/contact"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="
-                text-lg
-                font-medium
-                text-[#5A3E2B]
-                hover:text-[#C89B5E]
-               
-              "
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+
+                  setTimeout(() => {
+                    document
+                      .getElementById("contact")
+                      ?.scrollIntoView({ behavior: "smooth" });
+                  }, 100);
+                }}
+                className="text-left text-lg font-medium text-[#5A3E2B] hover:text-[#C89B5E]"
               >
                 Contact Us
-              </Link>
+              </button>
 
             </nav>
           </div>

@@ -7,6 +7,7 @@ import bgTexture from "../../assets/bg-texture.png";
 const Footer = () => {
   return (
     <footer
+    id="contact"
       className="relative text-[#D4AF5A]"
       style={{
         background:
@@ -27,9 +28,9 @@ const Footer = () => {
 
       {/* --- CONTENT WRAPPER (Overlay for readability) --- */}
       <div className="relative">
-        <div className="w-full py-12">
+        <div className="w-full ">
 
-          {/* --- MAP SECTION --- */}
+          
           {/* --- MAP SECTION --- */}
           <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-12">
             <div className="bg-white rounded-[28px] border border-[#E8E1D3] overflow-hidden shadow-[0_10px_25px_rgba(0,0,0,0.06)]">
@@ -60,14 +61,14 @@ const Footer = () => {
 
                   <div className="ml-15 md:ml-16 mt-5">
                     <a
-                      href="https://maps.google.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-3 bg-[#C8A85A] text-white px-6 py-3 rounded-xl hover:bg-[#B99849] transition-all duration-300"
-                    >
-                      View on Google Maps
-                      <span className="text-lg">→</span>
-                    </a>
+  href="https://www.google.com/maps/search/?api=1&query=9.943071674012783,76.34724677450792"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="inline-flex items-center gap-3 bg-[#C8A85A] text-white px-6 py-3 rounded-xl hover:bg-[#B99849] transition-all duration-300"
+>
+  View on Google Maps
+  <span className="text-lg">→</span>
+</a>
                   </div>
 
                 </div>
