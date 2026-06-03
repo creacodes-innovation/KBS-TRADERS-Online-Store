@@ -30,40 +30,59 @@ const Footer = () => {
        <div className="w-full py-12">
 
           {/* --- MAP SECTION --- */}
-         <div className="max-w-7xl mx-auto bg-[#F8F6F2] rounded-[32px] border border-[#E5DCC7] overflow-hidden mb-16 shadow-md">
-<div className="grid grid-cols-1 lg:grid-cols-2">
-    {/* Left Side */}
-    <div className="p-8 md:p-12 flex flex-col justify-center">
-      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#2B2217] mb-6">
-        VISIT OUR STORE
-      </h2>
+    {/* --- MAP SECTION --- */}
+<div className="max-w-7xl mx-auto px-4 sm:px-6 mb-12">
+  <div className="bg-white rounded-[28px] border border-[#E8E1D3] overflow-hidden shadow-[0_10px_25px_rgba(0,0,0,0.06)]">
 
-      <div className="text-[#3B3127] text-base sm:text-lg leading-8 sm:leading-10">
-        <p>SH15, opp. Govt HS School,</p>
-        <p>Kannankulangara,</p>
-        <p>Thrippunithura,</p>
-        <p>Kerala 682301</p>
+    <div className="grid grid-cols-1 lg:grid-cols-2">
+
+      {/* Left Side */}
+      <div className="p-5 md:p-6 lg:p-8 flex flex-col justify-center">
+
+        <div className="flex items-start gap-4 mb-4">
+          <div className="w-11 h-11 rounded-full bg-[#C8A85A] flex items-center justify-center flex-shrink-0">
+            <MapPin className="h-5 w-5 text-white" />
+          </div>
+
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold text-[#3A2A1A]">
+              VISIT OUR STORE
+            </h2>
+          </div>
+        </div>
+
+        <div className="text-[#4B4035] text-sm md:text-base leading-7 ml-15 md:ml-16">
+          <p>SH15, opp. Govt HS School,</p>
+          <p>Kannankulangara,</p>
+          <p>Thrippunithura,</p>
+          <p>Kerala 682301</p>
+        </div>
+
+        <div className="ml-15 md:ml-16 mt-5">
+          <a
+            href="https://maps.google.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-3 bg-[#C8A85A] text-white px-6 py-3 rounded-xl hover:bg-[#B99849] transition-all duration-300"
+          >
+            View on Google Maps
+            <span className="text-lg">→</span>
+          </a>
+        </div>
+
       </div>
 
-      <a
-        href="https://maps.google.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center justify-center mt-8 bg-[#C8A85A] text-white px-8 py-4 rounded-xl w-fit hover:opacity-90 transition"
-      >
-        View on Google Maps →
-      </a>
-    </div>
+      {/* Right Side */}
+      <div className="h-[220px] sm:h-[250px] md:h-[280px] lg:h-[300px]">
+        <iframe
+          title="KBS Traders Location"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3556.3461816033578!2d76.34724677450792!3d9.943071674012783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b08739935274861%3A0x37776d0fc870fc5a!2sKBS%20TRADERS!5e1!3m2!1sen!2sin!4v1770401656623!5m2!1sen!2sin"
+          className="w-full h-full"
+          style={{ border: 0 }}
+          loading="lazy"
+        />
+      </div>
 
-    {/* Right Side */}
-    <div className="h-[300px] lg:h-[450px]">
-      <iframe
-        title="KBS Traders Location"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3556.3461816033578!2d76.34724677450792!3d9.943071674012783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b08739935274861%3A0x37776d0fc870fc5a!2sKBS%20TRADERS!5e1!3m2!1sen!2sin!4v1770401656623!5m2!1sen!2sin"
-        className="w-full h-full"
-        style={{ border: 0 }}
-        loading="lazy"
-      />
     </div>
   </div>
 </div>
