@@ -109,6 +109,6 @@ export const useSearchProducts = (searchTerm: string) => {
 
       return (data || []) as unknown as Product[];
     },
-    enabled: searchTerm.length >= 2,
+    enabled: searchTerm.length >= 1,
   });
 };

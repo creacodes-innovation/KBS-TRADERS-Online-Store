@@ -19,11 +19,14 @@ import mbanner1 from '@/assets/mobilebanner1.jpeg'
 import mbanner2 from '@/assets/mobilebanner2.jpeg'
 import mbanner3 from '@/assets/mobilebanner3.jpeg'
 import mbanner4 from '@/assets/mobilebanner4.jpeg'
+import { useSearchProducts } from "@/hooks/useProducts";
 
 const Hero = () => {
   const [activeSlide, setActiveSlide] = useState(1);
     const [searchQuery, setSearchQuery] = useState('');
      const navigate = useNavigate();
+     const { data: suggestions = [] } = useSearchProducts(searchQuery);
+    
 
  const desktopBanners = [
   banner1,
@@ -82,49 +85,87 @@ const handleSearch = (e: React.FormEvent) => {
 
  {/* SEARCH BAR */}
 
-        <div className="pt-4">
+      <div className="pt-4">
   <div className="relative">
-     <form onSubmit={handleSearch} >
+    <form onSubmit={handleSearch}>
+      <Search
+        className="
+          absolute
+          left-4 md:left-5
+          top-1/2
+          -translate-y-1/2
+          h-5 w-5
+          md:h-6 md:w-6
+          text-gray-500
+          z-10
+        "
+      />
 
-    <Search
-      className="
-        absolute
-        left-4 md:left-5
-        top-1/2
-        -translate-y-1/2
-        h-5 w-5
-        md:h-6 md:w-6
-        text-gray-500
-      "
-    />
-
-    <input
-      type="text"
-       onChange={(e) => setSearchQuery(e.target.value)}
-       value={searchQuery}
-      placeholder="Search for Dates, Nuts, Spices..."
-      className="
-        w-full
-        rounded-full
-        border
-        border-[#D8D8D8]
-        bg-white
-        py-3
-        md:py-3.5
-        lg:py-4.5
-        pl-12
-        md:pl-14
-        pr-4
-        text-sm
-        md:text-base
-        outline-none
-        shadow-sm
-        placeholder:text-gray-400
-      "
-    />
+      <input
+        type="text"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        placeholder="Search for Dates, Nuts, Spices..."
+        className="
+          w-full
+          rounded-full
+          border
+          border-[#D8D8D8]
+          bg-white
+          py-3
+          md:py-3.5
+          lg:py-4.5
+          pl-12
+          md:pl-14
+          pr-4
+          text-sm
+          md:text-base
+          outline-none
+          shadow-sm
+          placeholder:text-gray-400
+        "
+      />
     </form>
+
+    {/* Live Suggestions */}
+  {searchQuery.length >= 1 && suggestions.length > 0 && (
+  <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-xl z-[9999] max-h-80 overflow-y-auto">
+    {suggestions.slice(0, 6).map((product) => (
+      <div
+        key={product.id}
+        onClick={() => {
+          navigate(`/product/${product.id}`);
+          setSearchQuery("");
+        }}
+        className="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 cursor-pointer border-b last:border-b-0"
+      >
+        <img
+          src={product.image_url || "/placeholder.png"}
+          alt={product.title}
+          className="w-12 h-12 rounded-md object-cover flex-shrink-0"
+        />
+
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-medium text-gray-900 truncate">
+            {product.title}
+          </p>
+
+          <p className="text-xs text-[#8D6A34] font-semibold mt-1">
+            ₹
+            {product.price_rs ??
+              product.price_250g ??
+              product.price_500g ??
+              product.price_1kg ??
+              0}
+          </p>
+        </div>
+      </div>
+    ))}
+  </div>
+)}
   </div>
 </div>
+
 
         {/* SHIPPING BANNER */}
 
