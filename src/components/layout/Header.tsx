@@ -21,6 +21,7 @@ const Header = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
+  
 
   const isHomePage = location.pathname === "/";
   const showBackButton = !isHomePage;
