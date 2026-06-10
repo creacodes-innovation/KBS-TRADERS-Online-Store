@@ -72,10 +72,21 @@ const ProductCard = ({ product }: ProductCardProps) => {
     (opt) => getPrice(opt.value) !== null,
   );
 
-  const [selectedWeight, setSelectedWeight] = useState<WeightOption>(
-    availableWeights.length > 0 ? availableWeights[0].value : "250g",
-  );
+  const [selectedWeight, setSelectedWeight] = useState<WeightOption>(() => {
+  if (availableWeights.find((w) => w.value === "1kg")) {
+    return "1kg";
+  }
 
+  if (availableWeights.find((w) => w.value === "500g")) {
+    return "500g";
+  }
+
+  if (availableWeights.find((w) => w.value === "250g")) {
+    return "250g";
+  }
+
+  return availableWeights[0]?.value || "250g";
+});
   const currentPrice = getPrice(selectedWeight);
 
   // ✅ MRP proportional split
